@@ -33,6 +33,11 @@ type Dict = {
   footer: { rights: string; source: string };
   account: { title: string; email: string; send: string; sent: string; points: string; qr: string; history: string; logout: string; notReady: string };
   admin: { title: string; notReady: string };
+  marquee: string[];
+  stats: { value: string; label: string }[];
+  club: { card: string; free: string };
+  insta: { text: string; cta: string };
+  branches: { title: string; open: string; closed: string; city: string };
 };
 
 const he: Dict = {
@@ -107,6 +112,16 @@ const he: Dict = {
     notReady: "המועדון עוד לא פעיל. נעדכן כשייפתח.",
   },
   admin: { title: "ניהול", notReady: "החיבור למסד הנתונים עוד לא הוגדר." },
+  marquee: ["קשטוטה", "חלב", "שמנת", "חלו יא חלו"],
+  stats: [
+    { value: "58", label: "קינוחים ומשקאות בתפריט" },
+    { value: "₪1", label: "שווה נקודה במועדון" },
+    { value: "50", label: "נקודות מתנה בהצטרפות" },
+    { value: "01:00", label: "פתוח עד מאוחר, חמישי עד שבת" },
+  ],
+  club: { card: "כרטיס מועדון", free: "ההצטרפות בחינם" },
+  insta: { text: "מה חדש בסניף, טעמים חדשים וטעימות של שישי. הכול עולה לאינסטגרם.", cta: "לעקוב באינסטגרם" },
+  branches: { title: "הסניפים שלנו", open: "פתוח עכשיו", closed: "סגור עכשיו", city: "חיפה" },
 };
 
 const ar: Dict = {
@@ -181,6 +196,16 @@ const ar: Dict = {
     notReady: "النادي لسا مش فعال. رح نخبرك لما يفتح.",
   },
   admin: { title: "الإدارة", notReady: "الاتصال بقاعدة البيانات لسا مش جاهز." },
+  marquee: ["قشطوطة", "حليب", "قشطة", "حلو يا حلو"],
+  stats: [
+    { value: "58", label: "حلوى ومشروب في القائمة" },
+    { value: "₪1", label: "يساوي نقطة في النادي" },
+    { value: "50", label: "نقطة هدية عند التسجيل" },
+    { value: "01:00", label: "مفتوح لوقت متأخر من الخميس للسبت" },
+  ],
+  club: { card: "بطاقة النادي", free: "الاشتراك مجاني" },
+  insta: { text: "جديد الفرع، نكهات جديدة وتذوق يوم الجمعة. كله بينزل على إنستغرام.", cta: "تابعونا على إنستغرام" },
+  branches: { title: "فروعنا", open: "مفتوح الآن", closed: "مغلق الآن", city: "حيفا" },
 };
 
 const en: Dict = {
@@ -255,6 +280,16 @@ const en: Dict = {
     notReady: "The club isn't live yet. We'll let you know when it opens.",
   },
   admin: { title: "Admin", notReady: "The database connection isn't set up yet." },
+  marquee: ["Qashtota", "Milk", "Cream", "Helw ya helw"],
+  stats: [
+    { value: "58", label: "desserts and drinks on the menu" },
+    { value: "₪1", label: "earns one club point" },
+    { value: "50", label: "welcome points when you join" },
+    { value: "01:00", label: "late nights, Thursday to Saturday" },
+  ],
+  club: { card: "Club card", free: "Joining is free" },
+  insta: { text: "New flavours, branch news and Friday tastings. It all goes up on Instagram first.", cta: "Follow on Instagram" },
+  branches: { title: "Our branches", open: "Open now", closed: "Closed now", city: "Haifa" },
 };
 
 const ru: Dict = {
@@ -329,6 +364,16 @@ const ru: Dict = {
     notReady: "Клуб ещё не работает. Мы сообщим, когда он откроется.",
   },
   admin: { title: "Управление", notReady: "Подключение к базе данных ещё не настроено." },
+  marquee: ["Каштота", "Молоко", "Сливки", "Хелу я хелу"],
+  stats: [
+    { value: "58", label: "десертов и напитков в меню" },
+    { value: "₪1", label: "это один балл в клубе" },
+    { value: "50", label: "баллов в подарок при вступлении" },
+    { value: "01:00", label: "работаем допоздна с четверга по субботу" },
+  ],
+  club: { card: "Карта клуба", free: "Вступление бесплатное" },
+  insta: { text: "Новые вкусы, новости филиала и пятничные дегустации. Всё сначала появляется в Instagram.", cta: "Подписаться в Instagram" },
+  branches: { title: "Наши филиалы", open: "Сейчас открыто", closed: "Сейчас закрыто", city: "Хайфа" },
 };
 
 export const dict: Record<Locale, Dict> = { he, ar, en, ru };

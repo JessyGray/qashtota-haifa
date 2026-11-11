@@ -28,9 +28,28 @@ function cover(ctx: CanvasRenderingContext2D, img: HTMLImageElement, alpha = 1) 
   return true;
 }
 
-export default function ScrollStory({ scenes, hint }: { scenes: Scene[]; hint: string }) {
+// Where the dessert sits for each scene: 1 = right half, -1 = left half (physical sides, same in RTL).
+const sideOf = (i: number) => (i % 2 === 0 ? 1 : -1);
+const ease = (t: number) => t * t * (3 - 2 * t);
+
+// Pose of the dessert for a scroll position f (0..scenes-1). At the top the video fills the
+// screen as before. During the first scene the background melts into the page colour and the
+// dessert comes forward and grows, then it glides from one half to the other between scenes.
+function pose(f: number, n: number) {
+  const a = Math.floor(f);
+  const b = Math.min(a + 1, n - 1);
+  const t = ease(Math.min(1, Math.max(0, (f - a - 0.3) / 0.4)));
+  const x = sideOf(a) + (sideOf(b) - sideOf(a)) * t;
+  const intro = ease(Math.min(1, f / 0.6));
+  return { x: x * intro, scale: 1 + 0.14 * intro, reveal: intro };
+}
+
+type Cta = { href: string; label: string; external?: boolean };
+
+export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene[]; hint: string; ctas?: Cta[] }) {
   const wrap = useRef<HTMLElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
+  const stage = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const [hasMedia, setHasMedia] = useState(false);
 
@@ -68,6 +87,13 @@ export default function ScrollStory({ scenes, hint }: { scenes: Scene[]; hint: s
         if (b !== a) cover(ctx, stills[b], x - a);
       }
       if (drawn) setHasMedia(true);
+      const f = progress * (scenes.length - 1);
+      const p = pose(f, scenes.length);
+      const amp = mobile ? 0.12 : 0.22; // share of viewport width
+      cv.style.transform = `translate3d(${(p.x * amp * 100).toFixed(2)}vw,0,0) scale(${p.scale.toFixed(3)})`;
+      // The mask starts far larger than the screen (no visible edge) and closes around the dessert.
+      const st = stage.current;
+      if (st) st.style.setProperty("--reveal", p.reveal.toFixed(3));
     };
     const schedule = () => { if (!raf) raf = requestAnimationFrame(draw); };
 
@@ -114,13 +140,21 @@ export default function ScrollStory({ scenes, hint }: { scenes: Scene[]; hint: s
 
   return (
     <section ref={wrap} className="story-scroll" style={{ height: `${scenes.length * 100}vh` }}>
-      <div className={`story-stage ${hasMedia ? "has-media" : ""}`}>
+      <div ref={stage} className={`story-stage ${hasMedia ? "has-media" : ""}`}>
+        <span className="story-word" aria-hidden="true">QASHTOTA</span>
         <canvas ref={canvas} aria-hidden="true" />
-        <div className="story-shade" />
         {scenes.map((s, i) => (
-          <div key={i} className={`story-copy ${i === active ? "on" : ""}`} aria-hidden={i !== active}>
+          <div key={i} className={`story-copy ${sideOf(i) > 0 ? "text-left" : "text-right"} ${i === active ? "on" : ""}`} aria-hidden={i !== active}>
+            <span className="story-step">{String(i + 1).padStart(2, "0")}</span>
             {i === 0 ? <h1>{s.title}</h1> : <h2>{s.title}</h2>}
             <p>{s.text}</p>
+            {i === scenes.length - 1 && ctas.length > 0 && (
+              <div className="story-cta">
+                {ctas.map((c, k) => (
+                  <a key={c.href} className={`btn ${k ? "btn-ghost" : ""}`} href={c.href} {...(c.external ? { target: "_blank", rel: "noopener" } : {})}>{c.label}</a>
+                ))}
+              </div>
+            )}
           </div>
         ))}
         <ol className="story-dots" aria-hidden="true">
