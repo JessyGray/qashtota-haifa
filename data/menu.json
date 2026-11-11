@@ -1,0 +1,873 @@
+{
+ "source": "mini-rest.com/resturent/qashtota-hf (2026-11-11)",
+ "categories": [
+  {
+   "id": "qashtota",
+   "name": {
+    "he": "קשטוטה",
+    "ar": "قشطوطة",
+    "en": "Qashtota",
+    "ru": "Каштота"
+   }
+  },
+  {
+   "id": "cakes",
+   "name": {
+    "he": "עוגות",
+    "ar": "كعكات",
+    "en": "Cakes",
+    "ru": "Торты"
+   }
+  },
+  {
+   "id": "sweets",
+   "name": {
+    "he": "מתוקים",
+    "ar": "حلويات",
+    "en": "Sweets",
+    "ru": "Сладости"
+   }
+  },
+  {
+   "id": "ice-cream-yogurt",
+   "name": {
+    "he": "גלידה & יוגורט",
+    "ar": "بوظة ولبن مجمّد",
+    "en": "Ice Cream & Yogurt",
+    "ru": "Мороженое и йогурт"
+   }
+  },
+  {
+   "id": "cold-drinks",
+   "name": {
+    "he": "שתייה מרעננת",
+    "ar": "مشروبات باردة",
+    "en": "Cold Drinks",
+    "ru": "Холодные напитки"
+   }
+  },
+  {
+   "id": "hot-drinks",
+   "name": {
+    "he": "שתייה חמה",
+    "ar": "مشروبات ساخنة",
+    "en": "Hot Drinks",
+    "ru": "Горячие напитки"
+   }
+  }
+ ],
+ "items": [
+  {
+   "id": "M01",
+   "slug": "choco-crunch-cake",
+   "category": "qashtota",
+   "name": {
+    "he": "עוגת שוקו קרנץ'",
+    "ar": "كعكة شوكو كرانش",
+    "en": "Choco Crunch Cake",
+    "ru": "Торт «Шоко-кранч»"
+   },
+   "price": 30.0,
+   "photo": "/menu/m01.webp",
+   "active": true
+  },
+  {
+   "id": "M02",
+   "slug": "linda-cake",
+   "category": "qashtota",
+   "name": {
+    "he": "עוגת לינדה",
+    "ar": "كعكة ليندا",
+    "en": "Linda Cake",
+    "ru": "Торт «Линда»"
+   },
+   "price": 30.0,
+   "photo": "/menu/m02.webp",
+   "active": true
+  },
+  {
+   "id": "M03",
+   "slug": "classic-qashtota",
+   "category": "qashtota",
+   "name": {
+    "he": "קשטוטה",
+    "ar": "قشطوطة كلاسيك",
+    "en": "Classic Qashtota",
+    "ru": "Каштота классическая"
+   },
+   "price": 35.0,
+   "photo": "/menu/m03.webp",
+   "active": true
+  },
+  {
+   "id": "M04",
+   "slug": "london-dessert",
+   "category": "qashtota",
+   "name": {
+    "he": "קינוח לונדון",
+    "ar": "حلوى لندن",
+    "en": "London Dessert",
+    "ru": "Десерт «Лондон»"
+   },
+   "price": 35.0,
+   "photo": "/menu/m04.webp",
+   "active": true
+  },
+  {
+   "id": "M05",
+   "slug": "koshari-dessert",
+   "category": "qashtota",
+   "name": {
+    "he": "קושארי",
+    "ar": "كشري حلو",
+    "en": "Koshari Dessert",
+    "ru": "Десерт «Кошари»"
+   },
+   "price": 38.0,
+   "photo": "/menu/m05.webp",
+   "active": true
+  },
+  {
+   "id": "M06",
+   "slug": "chocolate-qashtota",
+   "category": "qashtota",
+   "name": {
+    "he": "קשטוטה שוקולד",
+    "ar": "قشطوطة شوكولاتة",
+    "en": "Chocolate Qashtota",
+    "ru": "Каштота шоколадная"
+   },
+   "price": 38.0,
+   "photo": "/menu/m06.webp",
+   "active": true
+  },
+  {
+   "id": "M07",
+   "slug": "lotus-qashtota",
+   "category": "qashtota",
+   "name": {
+    "he": "קשטוטה לוטוס",
+    "ar": "قشطوطة لوتس",
+    "en": "Lotus Qashtota",
+    "ru": "Каштота Lotus"
+   },
+   "price": 38.0,
+   "photo": "/menu/m07.webp",
+   "active": true
+  },
+  {
+   "id": "M08",
+   "slug": "oreo-qashtota",
+   "category": "qashtota",
+   "name": {
+    "he": "קשטוטה אוראו",
+    "ar": "قشطوطة أوريو",
+    "en": "Oreo Qashtota",
+    "ru": "Каштота Oreo"
+   },
+   "price": 38.0,
+   "photo": "/menu/m08.webp",
+   "active": true
+  },
+  {
+   "id": "M09",
+   "slug": "oats-honey-qashtota",
+   "category": "qashtota",
+   "name": {
+    "he": "קשטוטה שיבולת שועל ודבש",
+    "ar": "قشطوطة شوفان وعسل",
+    "en": "Oats & Honey Qashtota",
+    "ru": "Каштота с овсом и мёдом"
+   },
+   "price": 38.0,
+   "photo": "/menu/m09.webp",
+   "active": true
+  },
+  {
+   "id": "M10",
+   "slug": "halabisa-qashtota",
+   "category": "qashtota",
+   "name": {
+    "he": "קשטוטה כלאביסה",
+    "ar": "قشطوطة حلابيسة",
+    "en": "Halabisa Qashtota",
+    "ru": "Каштота «Халабиса»"
+   },
+   "price": 38.0,
+   "photo": "/menu/m10.webp",
+   "active": true
+  },
+  {
+   "id": "M11",
+   "slug": "dubai-qashtota",
+   "category": "qashtota",
+   "name": {
+    "he": "קשטוטה דובאי",
+    "ar": "قشطوطة دبي",
+    "en": "Dubai Qashtota",
+    "ru": "Каштота «Дубай»"
+   },
+   "price": 38.0,
+   "photo": "/menu/m11.webp",
+   "active": true
+  },
+  {
+   "id": "M12",
+   "slug": "lolita-qashtota",
+   "category": "qashtota",
+   "name": {
+    "he": "קשטוטה לוליטה",
+    "ar": "قشطوطة لوليتا",
+    "en": "Lolita Qashtota",
+    "ru": "Каштота «Лолита»"
+   },
+   "price": 38.0,
+   "photo": "/menu/m12.webp",
+   "active": true
+  },
+  {
+   "id": "M13",
+   "slug": "loua-qashtota",
+   "category": "qashtota",
+   "name": {
+    "he": "קשטוטה לואה",
+    "ar": "قشطوطة لوا",
+    "en": "Loua Qashtota",
+    "ru": "Каштота «Луа»"
+   },
+   "price": 38.0,
+   "photo": "/menu/m13.webp",
+   "active": true
+  },
+  {
+   "id": "M14",
+   "slug": "fruit-qashtota",
+   "category": "qashtota",
+   "name": {
+    "he": "קשטוטה פירות",
+    "ar": "قشطوطة فواكه",
+    "en": "Fruit Qashtota",
+    "ru": "Каштота с фруктами"
+   },
+   "price": 40.0,
+   "photo": "/menu/m14.webp",
+   "active": true
+  },
+  {
+   "id": "M15",
+   "slug": "trilece",
+   "category": "cakes",
+   "name": {
+    "he": "טרילצ'ה",
+    "ar": "تريليتشه",
+    "en": "Trilece",
+    "ru": "Трилече"
+   },
+   "price": 30.0,
+   "photo": "/menu/m15.webp",
+   "active": true
+  },
+  {
+   "id": "M16",
+   "slug": "jumeirah-cake",
+   "category": "cakes",
+   "name": {
+    "he": "עוגת ג'ומרה",
+    "ar": "كعكة جميرا",
+    "en": "Jumeirah Cake",
+    "ru": "Торт «Джумейра»"
+   },
+   "price": 30.0,
+   "photo": "/menu/m16.webp",
+   "active": true
+  },
+  {
+   "id": "M17",
+   "slug": "souffl",
+   "category": "cakes",
+   "name": {
+    "he": "סופלה",
+    "ar": "سوفليه",
+    "en": "Soufflé",
+    "ru": "Суфле"
+   },
+   "price": 30.0,
+   "photo": "/menu/m17.webp",
+   "active": true
+  },
+  {
+   "id": "M18",
+   "slug": "tiramisu",
+   "category": "cakes",
+   "name": {
+    "he": "טירמיסו",
+    "ar": "تيراميسو",
+    "en": "Tiramisu",
+    "ru": "Тирамису"
+   },
+   "price": 30.0,
+   "photo": "/menu/m18.webp",
+   "active": true
+  },
+  {
+   "id": "M19",
+   "slug": "chocolate-krembolia",
+   "category": "cakes",
+   "name": {
+    "he": "קרמבוליה שוקולד",
+    "ar": "كرمبوليا شوكولاتة",
+    "en": "Chocolate Krembolia",
+    "ru": "Кремболия шоколадная"
+   },
+   "price": 35.0,
+   "photo": "/menu/m19.webp",
+   "active": true
+  },
+  {
+   "id": "M20",
+   "slug": "krembolia-dalal",
+   "category": "cakes",
+   "name": {
+    "he": "קרמבוליה דלאל",
+    "ar": "كرمبوليا دلال",
+    "en": "Krembolia Dalal",
+    "ru": "Кремболия «Далал»"
+   },
+   "price": 35.0,
+   "photo": "/menu/m20.webp",
+   "active": true
+  },
+  {
+   "id": "M21",
+   "slug": "krembolia-farah",
+   "category": "cakes",
+   "name": {
+    "he": "קרמובוליה פרח",
+    "ar": "كرمبوليا فرح",
+    "en": "Krembolia Farah",
+    "ru": "Кремболия «Фарах»"
+   },
+   "price": 35.0,
+   "photo": "/menu/m21.webp",
+   "active": true
+  },
+  {
+   "id": "M22",
+   "slug": "chocolate-dubon",
+   "category": "cakes",
+   "name": {
+    "he": "דובון שוקולד",
+    "ar": "دوبون شوكولاتة",
+    "en": "Chocolate Dubon",
+    "ru": "«Дубон» шоколадный"
+   },
+   "price": 35.0,
+   "photo": "/menu/m22.webp",
+   "active": true
+  },
+  {
+   "id": "M23",
+   "slug": "san-sebasti-n-cheesecake",
+   "category": "cakes",
+   "name": {
+    "he": "סאן סבסטיאן",
+    "ar": "سان سيباستيان",
+    "en": "San Sebastián Cheesecake",
+    "ru": "Чизкейк «Сан-Себастьян»"
+   },
+   "price": 35.0,
+   "photo": "/menu/m23.webp",
+   "active": true
+  },
+  {
+   "id": "M24",
+   "slug": "chocolate-prafushka",
+   "category": "cakes",
+   "name": {
+    "he": "פרפושקה שוקולד",
+    "ar": "برافوشكا شوكولاتة",
+    "en": "Chocolate Prafushka",
+    "ru": "Прафушка шоколадная"
+   },
+   "price": 38.0,
+   "photo": "/menu/m24.webp",
+   "active": true
+  },
+  {
+   "id": "M25",
+   "slug": "prafushka-farah",
+   "category": "cakes",
+   "name": {
+    "he": "פרפושקה פרח",
+    "ar": "برافوشكا فرح",
+    "en": "Prafushka Farah",
+    "ru": "Прафушка «Фарах»"
+   },
+   "price": 38.0,
+   "photo": "/menu/m25.webp",
+   "active": true
+  },
+  {
+   "id": "M26",
+   "slug": "prafushka-bueno",
+   "category": "cakes",
+   "name": {
+    "he": "פרפושקה בואנו",
+    "ar": "برافوشكا بوينو",
+    "en": "Prafushka Bueno",
+    "ru": "Прафушка «Буэно»"
+   },
+   "price": 38.0,
+   "photo": "/menu/m26.webp",
+   "active": true
+  },
+  {
+   "id": "M27",
+   "slug": "de-paris-p-tissier",
+   "category": "cakes",
+   "name": {
+    "he": "דה פריס פטיסייר",
+    "ar": "دي باريس باتيسييه",
+    "en": "De Paris Pâtissier",
+    "ru": "«Де Пари Патиссье»"
+   },
+   "price": 70.0,
+   "photo": "/menu/m27.webp",
+   "active": true
+  },
+  {
+   "id": "M28",
+   "slug": "cr-pe",
+   "category": "sweets",
+   "name": {
+    "he": "קרפ",
+    "ar": "كريب",
+    "en": "Crêpe",
+    "ru": "Креп"
+   },
+   "price": 25.0,
+   "photo": "/menu/m28.webp",
+   "active": true
+  },
+  {
+   "id": "M29",
+   "slug": "pancake-balls-10-pcs",
+   "category": "sweets",
+   "name": {
+    "he": "כדורי פנקייק 10 יח'",
+    "ar": "كرات بان كيك (10 قطع)",
+    "en": "Pancake Balls (10 pcs)",
+    "ru": "Шарики-панкейки (10 шт.)"
+   },
+   "price": 25.0,
+   "photo": "/menu/m29.webp",
+   "active": true
+  },
+  {
+   "id": "M30",
+   "slug": "sweet-celebration-4-mojitos",
+   "category": "sweets",
+   "name": {
+    "he": "חגיגה מתוקה + 4 מוחיטו",
+    "ar": "احتفال حلو + 4 موهيتو",
+    "en": "Sweet Celebration + 4 Mojitos",
+    "ru": "«Сладкий праздник» + 4 мохито"
+   },
+   "price": 189.0,
+   "photo": "/menu/m30.webp",
+   "active": true
+  },
+  {
+   "id": "M31",
+   "slug": "ice-cream-1-scoop",
+   "category": "ice-cream-yogurt",
+   "name": {
+    "he": "גלידה כדור 1",
+    "ar": "بوظة كرة واحدة",
+    "en": "Ice Cream 1 Scoop",
+    "ru": "Мороженое 1 шарик"
+   },
+   "price": 10.0,
+   "photo": "/menu/m31.webp",
+   "active": true
+  },
+  {
+   "id": "M32",
+   "slug": "ice-cream-2-scoops",
+   "category": "ice-cream-yogurt",
+   "name": {
+    "he": "גלידה 2 כדורים",
+    "ar": "بوظة كرتان",
+    "en": "Ice Cream 2 Scoops",
+    "ru": "Мороженое 2 шарика"
+   },
+   "price": 18.0,
+   "photo": "/menu/m32.webp",
+   "active": true
+  },
+  {
+   "id": "M33",
+   "slug": "ice-cream-3-scoops",
+   "category": "ice-cream-yogurt",
+   "name": {
+    "he": "גלידה 3 כדורים",
+    "ar": "بوظة 3 كرات",
+    "en": "Ice Cream 3 Scoops",
+    "ru": "Мороженое 3 шарика"
+   },
+   "price": 26.0,
+   "photo": "/menu/m33.webp",
+   "active": true
+  },
+  {
+   "id": "M34",
+   "slug": "frozen-yogurt-small",
+   "category": "ice-cream-yogurt",
+   "name": {
+    "he": "יוגורט קטן",
+    "ar": "زبادي مثلج صغير",
+    "en": "Frozen Yogurt Small",
+    "ru": "Йогурт малый"
+   },
+   "price": 22.0,
+   "photo": "/menu/m34.webp",
+   "active": true
+  },
+  {
+   "id": "M35",
+   "slug": "frozen-yogurt-medium",
+   "category": "ice-cream-yogurt",
+   "name": {
+    "he": "יוגורט בינוני",
+    "ar": "زبادي مثلج وسط",
+    "en": "Frozen Yogurt Medium",
+    "ru": "Йогурт средний"
+   },
+   "price": 29.0,
+   "photo": "/menu/m35.webp",
+   "active": true
+  },
+  {
+   "id": "M36",
+   "slug": "frozen-yogurt-large",
+   "category": "ice-cream-yogurt",
+   "name": {
+    "he": "יוגורט גדול",
+    "ar": "زبادي مثلج كبير",
+    "en": "Frozen Yogurt Large",
+    "ru": "Йогурт большой"
+   },
+   "price": 35.0,
+   "photo": "/menu/m36.webp",
+   "active": true
+  },
+  {
+   "id": "M37",
+   "slug": "soft-drink",
+   "category": "cold-drinks",
+   "name": {
+    "he": "שתיה קלה",
+    "ar": "مشروب غازي",
+    "en": "Soft Drink",
+    "ru": "Безалкогольный напиток"
+   },
+   "price": 10.0,
+   "photo": "/menu/m37.webp",
+   "active": true
+  },
+  {
+   "id": "M38",
+   "slug": "iced-coffee",
+   "category": "cold-drinks",
+   "name": {
+    "he": "אייס קפה",
+    "ar": "آيس كوفي",
+    "en": "Iced Coffee",
+    "ru": "Айс-кофе"
+   },
+   "price": 25.0,
+   "photo": "/menu/m38.webp",
+   "active": true
+  },
+  {
+   "id": "M39",
+   "slug": "iced-vanilla",
+   "category": "cold-drinks",
+   "name": {
+    "he": "אייס וניל",
+    "ar": "آيس فانيلا",
+    "en": "Iced Vanilla",
+    "ru": "Айс-ваниль"
+   },
+   "price": 25.0,
+   "photo": "/menu/m39.webp",
+   "active": true
+  },
+  {
+   "id": "M40",
+   "slug": "mojito-non-alcoholic",
+   "category": "cold-drinks",
+   "name": {
+    "he": "מוחיטו",
+    "ar": "موهيتو",
+    "en": "Mojito (non-alcoholic)",
+    "ru": "Мохито (безалкогольный)"
+   },
+   "price": 25.0,
+   "photo": "/menu/m40.webp",
+   "active": true
+  },
+  {
+   "id": "M41",
+   "slug": "lemon-mint-granita",
+   "category": "cold-drinks",
+   "name": {
+    "he": "גרוס לימונענע",
+    "ar": "غرانيتا ليمون ونعنع",
+    "en": "Lemon-Mint Granita",
+    "ru": "Гранита лимон-мята"
+   },
+   "price": 28.0,
+   "photo": "/menu/m41.webp",
+   "active": true
+  },
+  {
+   "id": "M42",
+   "slug": "lemon-pineapple-granita",
+   "category": "cold-drinks",
+   "name": {
+    "he": "גרוס לימון אננס",
+    "ar": "غرانيتا ليمون وأناناس",
+    "en": "Lemon-Pineapple Granita",
+    "ru": "Гранита лимон-ананас"
+   },
+   "price": 28.0,
+   "photo": "/menu/m42.webp",
+   "active": true
+  },
+  {
+   "id": "M43",
+   "slug": "fresh-pomegranate-juice",
+   "category": "cold-drinks",
+   "name": {
+    "he": "סחוט רימון",
+    "ar": "عصير رمان طبيعي",
+    "en": "Fresh Pomegranate Juice",
+    "ru": "Свежевыжатый гранатовый сок"
+   },
+   "price": 28.0,
+   "photo": "/menu/m43.webp",
+   "active": true
+  },
+  {
+   "id": "M44",
+   "slug": "fresh-orange-juice",
+   "category": "cold-drinks",
+   "name": {
+    "he": "סחוט תפוזים",
+    "ar": "عصير برتقال طبيعي",
+    "en": "Fresh Orange Juice",
+    "ru": "Свежевыжатый апельсиновый сок"
+   },
+   "price": 28.0,
+   "photo": "/menu/m44.webp",
+   "active": true
+  },
+  {
+   "id": "M45",
+   "slug": "fresh-carrot-juice",
+   "category": "cold-drinks",
+   "name": {
+    "he": "סחוט גזר",
+    "ar": "عصير جزر طبيعي",
+    "en": "Fresh Carrot Juice",
+    "ru": "Свежевыжатый морковный сок"
+   },
+   "price": 28.0,
+   "photo": "/menu/m45.webp",
+   "active": true
+  },
+  {
+   "id": "M46",
+   "slug": "fruit-shake",
+   "category": "cold-drinks",
+   "name": {
+    "he": "שייק פירות",
+    "ar": "شيك فواكه",
+    "en": "Fruit Shake",
+    "ru": "Фруктовый шейк"
+   },
+   "price": 28.0,
+   "photo": "/menu/m46.webp",
+   "active": true
+  },
+  {
+   "id": "M47",
+   "slug": "lotus-milkshake",
+   "category": "cold-drinks",
+   "name": {
+    "he": "מילקשייק לוטוס",
+    "ar": "ميلك شيك لوتس",
+    "en": "Lotus Milkshake",
+    "ru": "Милкшейк Lotus"
+   },
+   "price": 28.0,
+   "photo": "/menu/m47.webp",
+   "active": true
+  },
+  {
+   "id": "M48",
+   "slug": "strawberry-milkshake",
+   "category": "cold-drinks",
+   "name": {
+    "he": "מילקשייק תות",
+    "ar": "ميلك شيك فراولة",
+    "en": "Strawberry Milkshake",
+    "ru": "Клубничный милкшейк"
+   },
+   "price": 28.0,
+   "photo": "/menu/m48.webp",
+   "active": true
+  },
+  {
+   "id": "M49",
+   "slug": "oreo-milkshake",
+   "category": "cold-drinks",
+   "name": {
+    "he": "מילקשייק אוראו",
+    "ar": "ميلك شيك أوريو",
+    "en": "Oreo Milkshake",
+    "ru": "Милкшейк Oreo"
+   },
+   "price": 28.0,
+   "photo": "/menu/m49.webp",
+   "active": true
+  },
+  {
+   "id": "M50",
+   "slug": "vanilla-milkshake",
+   "category": "cold-drinks",
+   "name": {
+    "he": "מילקשייק וניל",
+    "ar": "ميلك شيك فانيلا",
+    "en": "Vanilla Milkshake",
+    "ru": "Ванильный милкшейк"
+   },
+   "price": 28.0,
+   "photo": "/menu/m50.webp",
+   "active": true
+  },
+  {
+   "id": "M51",
+   "slug": "pistachio-milkshake",
+   "category": "cold-drinks",
+   "name": {
+    "he": "מילקשייק פיסטוק",
+    "ar": "ميلك شيك فستق",
+    "en": "Pistachio Milkshake",
+    "ru": "Фисташковый милкшейк"
+   },
+   "price": 28.0,
+   "photo": "/menu/m51.webp",
+   "active": true
+  },
+  {
+   "id": "M52",
+   "slug": "pakh-pakhina",
+   "category": "cold-drinks",
+   "name": {
+    "he": "פחפחינה",
+    "ar": "بخبخينا",
+    "en": "Pakh-Pakhina",
+    "ru": "«Пахпахина»"
+   },
+   "price": 28.0,
+   "photo": "/menu/m52.webp",
+   "active": true
+  },
+  {
+   "id": "M53",
+   "slug": "hot-chocolate-small",
+   "category": "hot-drinks",
+   "name": {
+    "he": "שוקולטה קטן",
+    "ar": "شوكولاتة ساخنة صغير",
+    "en": "Hot Chocolate Small",
+    "ru": "Горячий шоколад малый"
+   },
+   "price": 15.0,
+   "photo": "/menu/m53.webp",
+   "active": true
+  },
+  {
+   "id": "M54",
+   "slug": "hot-chocolate-large",
+   "category": "hot-drinks",
+   "name": {
+    "he": "שוקולטה גדול",
+    "ar": "شوكولاتة ساخنة كبير",
+    "en": "Hot Chocolate Large",
+    "ru": "Горячий шоколад большой"
+   },
+   "price": 18.0,
+   "photo": "/menu/m54.webp",
+   "active": true
+  },
+  {
+   "id": "M55",
+   "slug": "sahlab-small",
+   "category": "hot-drinks",
+   "name": {
+    "he": "סחלב קטן",
+    "ar": "سحلب صغير",
+    "en": "Sahlab Small",
+    "ru": "Сахлаб малый"
+   },
+   "price": 15.0,
+   "photo": "/menu/m55.webp",
+   "active": true
+  },
+  {
+   "id": "M56",
+   "slug": "sahlab-large",
+   "category": "hot-drinks",
+   "name": {
+    "he": "סחלב גדול",
+    "ar": "سحلب كبير",
+    "en": "Sahlab Large",
+    "ru": "Сахлаб большой"
+   },
+   "price": 18.0,
+   "photo": "/menu/m56.webp",
+   "active": true
+  },
+  {
+   "id": "M57",
+   "slug": "nescaf-cappuccino-small",
+   "category": "hot-drinks",
+   "name": {
+    "he": "נס קפה/הפוך קטן",
+    "ar": "نسكافيه / كابتشينو صغير",
+    "en": "Nescafé / Cappuccino Small",
+    "ru": "Нескафе / капучино малый"
+   },
+   "price": 15.0,
+   "photo": "/menu/m57.webp",
+   "active": true
+  },
+  {
+   "id": "M58",
+   "slug": "nescaf-cappuccino-large",
+   "category": "hot-drinks",
+   "name": {
+    "he": "נס קפה/הפוך גדול",
+    "ar": "نسكافيه / كابتشينو كبير",
+    "en": "Nescafé / Cappuccino Large",
+    "ru": "Нескафе / капучино большой"
+   },
+   "price": 18.0,
+   "photo": "/menu/m58.webp",
+   "active": true
+  }
+ ]
+}
