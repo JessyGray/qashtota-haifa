@@ -37,7 +37,7 @@ type Dict = {
   stats: { value: string; label: string }[];
   club: { card: string; free: string };
   insta: { text: string; cta: string };
-  branches: { title: string; open: string; closed: string; city: string };
+  branches: { title: string; open: string; closed: string; city: string; since: string };
 };
 
 const he: Dict = {
@@ -121,7 +121,7 @@ const he: Dict = {
   ],
   club: { card: "כרטיס מועדון", free: "ההצטרפות בחינם" },
   insta: { text: "מה חדש בסניף, טעמים חדשים וטעימות של שישי. הכול עולה לאינסטגרם.", cta: "לעקוב באינסטגרם" },
-  branches: { title: "הסניפים שלנו", open: "פתוח עכשיו", closed: "סגור עכשיו", city: "חיפה" },
+  branches: { title: "הסניפים שלנו", open: "פתוח עכשיו", closed: "סגור עכשיו", city: "חיפה", since: "מאז מרץ 2026" },
 };
 
 const ar: Dict = {
@@ -205,7 +205,7 @@ const ar: Dict = {
   ],
   club: { card: "بطاقة النادي", free: "الاشتراك مجاني" },
   insta: { text: "جديد الفرع، نكهات جديدة وتذوق يوم الجمعة. كله بينزل على إنستغرام.", cta: "تابعونا على إنستغرام" },
-  branches: { title: "فروعنا", open: "مفتوح الآن", closed: "مغلق الآن", city: "حيفا" },
+  branches: { title: "فروعنا", open: "مفتوح الآن", closed: "مغلق الآن", city: "حيفا", since: "منذ آذار 2026" },
 };
 
 const en: Dict = {
@@ -289,7 +289,7 @@ const en: Dict = {
   ],
   club: { card: "Club card", free: "Joining is free" },
   insta: { text: "New flavours, branch news and Friday tastings. It all goes up on Instagram first.", cta: "Follow on Instagram" },
-  branches: { title: "Our branches", open: "Open now", closed: "Closed now", city: "Haifa" },
+  branches: { title: "Our branches", open: "Open now", closed: "Closed now", city: "Haifa", since: "Since March 2026" },
 };
 
 const ru: Dict = {
@@ -373,7 +373,7 @@ const ru: Dict = {
   ],
   club: { card: "Карта клуба", free: "Вступление бесплатное" },
   insta: { text: "Новые вкусы, новости филиала и пятничные дегустации. Всё сначала появляется в Instagram.", cta: "Подписаться в Instagram" },
-  branches: { title: "Наши филиалы", open: "Сейчас открыто", closed: "Сейчас закрыто", city: "Хайфа" },
+  branches: { title: "Наши филиалы", open: "Сейчас открыто", closed: "Сейчас закрыто", city: "Хайфа", since: "С марта 2026" },
 };
 
 export const dict: Record<Locale, Dict> = { he, ar, en, ru };

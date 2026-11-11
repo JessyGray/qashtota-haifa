@@ -98,7 +98,12 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <p>{t.tasting.text}</p>
           </div>
         </div>
-        <Photo path="/story/m/k5.webp" alt={t.story.title} className="photo-tall" />
+        <div className="collage">
+          <Photo path="/story/m/k5.webp" alt={t.story.title} className="photo-tall" />
+          <Photo path="/menu/m07.webp" alt="" className="collage-a" />
+          <Photo path="/menu/m12.webp" alt="" className="collage-b" />
+          <span className="collage-badge">{t.branches.since}</span>
+        </div>
       </section>
 
       <section className="section section-blue club">
