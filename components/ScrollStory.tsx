@@ -90,7 +90,8 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
     const ctx = cv.getContext("2d");
     if (!ctx) return;
 
-    const mobile = window.matchMedia("(max-width: 760px)").matches;
+    // Same breakpoint as the portrait layout in globals.css.
+    const mobile = window.matchMedia("(max-width: 760px), (orientation: portrait) and (max-width: 1100px)").matches;
     const count = mobile ? SEQ_MOBILE : SEQ_DESKTOP;
     const dir = mobile ? "m" : "d";
     const frames = Array.from({ length: count }, (_, i) => load(asset(`/seq/${dir}/${pad(i + 1)}.webp`)));

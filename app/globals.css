@@ -142,18 +142,21 @@ h3 { font-size: 1.15rem; }
   .nav .wide { display: none; }
   .logo img { height: 36px; }
   .split { grid-template-columns: 1fr; }
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .card-body { padding: 12px; }
+  .card-body h3 { font-size: 1rem; }
+  .card-row { flex-direction: column; gap: 2px; }
+}
+/* Phones and portrait tablets: the dessert sits in the upper part, the text below it */
+@media (max-width: 760px), (orientation: portrait) and (max-width: 1100px) {
   .story-stage canvas { transform-origin: 50% 40%; --mx: calc(150% - 104% * var(--reveal, 0)); --my: calc(150% - 118% * var(--reveal, 0));
     -webkit-mask-image: radial-gradient(ellipse var(--mx) var(--my) at 50% 40%, #000 60%, transparent 100%); mask-image: radial-gradient(ellipse var(--mx) var(--my) at 50% 40%, #000 60%, transparent 100%); }
-  .story-copy, .story-copy.text-left, .story-copy.text-right { top: auto; bottom: 9svh; left: 20px; right: 20px; width: auto; text-align: start; transform: translateY(16px); }
+  .story-copy, .story-copy.text-left, .story-copy.text-right { top: auto; bottom: 9svh; left: max(20px, 6vw); right: max(20px, 6vw); width: auto; text-align: start; transform: translateY(16px); }
   [dir] .story-copy.on { transform: none; }
   .story-copy h1, .story-copy h2 { font-size: clamp(1.7rem, 8vw, 2.4rem); }
   .story-hint { bottom: 3vh; }
   .story-dots { bottom: auto; top: 72px; }
   .story-word { bottom: 34svh; font-size: 26vw; }
-  .grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-  .card-body { padding: 12px; }
-  .card-body h3 { font-size: 1rem; }
-  .card-row { flex-direction: column; gap: 2px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
