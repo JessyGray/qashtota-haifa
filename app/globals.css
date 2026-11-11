@@ -166,7 +166,7 @@ h3 { font-size: 1.15rem; }
   .story-copy h1, .story-copy h2 { font-size: clamp(1.7rem, 8vw, 2.4rem); }
   .story-hint { bottom: 3vh; }
   .story-dots { bottom: auto; top: 72px; }
-  .story-word { top: 30%; font-size: 23vw; }
+  .story-word { top: 36%; font-size: 23vw; transform: translateY(calc(-62% - var(--intro, 0) * 3vh)) scale(calc(1 - var(--intro, 0) * 0.08)); }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
