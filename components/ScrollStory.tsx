@@ -63,6 +63,7 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
   const canvas = useRef<HTMLCanvasElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
+  const [hero, setHero] = useState(true);
   const [hasMedia, setHasMedia] = useState(false);
   const [portrait, setPortrait] = useState<boolean | null>(null);
 
@@ -97,10 +98,15 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
       const { width: cw, height: ch } = cv;
       ctx.clearRect(0, 0, cw, ch);
       const f = progress * (scenes.length - 1);
-      const x = sideAt(f, scenes.length);
-      // Desktop: the dessert takes a bit more than half the width and sits in the half away from
-      // the text. Phones: nearly full width in the upper part, text below.
-      const w = mobile ? cw * 0.96 : Math.min(cw * 0.56, ch * 0.74 * (16 / 9));
+      // At the very top the dessert sits centred in front of the big tagline. As soon as the
+      // story starts it moves to one side and the copy appears on the other.
+      const intro = ease(Math.min(1, f / 0.45));
+      const x = sideAt(f, scenes.length) * intro;
+      // Desktop: a bit more than half the width, in the half away from the text.
+      // Phones: nearly full width in the upper part, text below.
+      const big = Math.min(cw * 0.64, ch * 0.8 * (16 / 9));
+      const small = Math.min(cw * 0.56, ch * 0.74 * (16 / 9));
+      const w = mobile ? cw * 0.96 : big + (small - big) * intro;
       const cx = cw / 2 + x * (mobile ? cw * 0.03 : cw * 0.21);
       const cy = ch * (mobile ? 0.4 : 0.53);
       let drawn = false;
@@ -115,7 +121,8 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
       }
       if (drawn) setHasMedia(true);
       // The big word behind drifts up and fades as the story moves on.
-      stage.current?.style.setProperty("--p", progress.toFixed(3));
+      stage.current?.style.setProperty("--intro", intro.toFixed(3));
+      setHero(f < 0.18);
     };
     const schedule = () => { if (!raf) raf = requestAnimationFrame(draw); };
 
@@ -171,8 +178,7 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
         </span>
         <canvas ref={canvas} aria-hidden="true" />
         {scenes.map((s, i) => (
-          <div key={i} className={`story-copy ${sideOf(i) > 0 ? "text-left" : "text-right"} ${i === active ? "on" : ""}`} aria-hidden={i !== active} inert={i !== active}>
-            <span className="story-step">{String(i + 1).padStart(2, "0")}</span>
+          <div key={i} className={`story-copy ${sideOf(i) > 0 ? "text-left" : "text-right"} ${i === active && !(hero && hasMedia) ? "on" : ""}`} aria-hidden={i !== active} inert={i !== active}>
             {i === 0 ? <h1>{s.title}</h1> : <h2>{s.title}</h2>}
             <p>{s.text}</p>
             {i === scenes.length - 1 && ctas.length > 0 && (
@@ -187,7 +193,7 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
         <ol className="story-dots" aria-hidden="true">
           {scenes.map((_, i) => <li key={i} className={i === active ? "on" : ""} />)}
         </ol>
-        <span className={`story-hint ${active ? "gone" : ""}`}>{hint} ↓</span>
+        <span className={`story-hint ${active || !hero ? "gone" : ""}`}>{hint} ↓</span>
       </div>
     </section>
   );
