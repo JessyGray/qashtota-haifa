@@ -108,7 +108,7 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
       const small = Math.min(cw * 0.56, ch * 0.74 * (16 / 9));
       const w = mobile ? cw * 0.96 : big + (small - big) * intro;
       const cx = cw / 2 + x * (mobile ? cw * 0.03 : cw * 0.21);
-      const cy = ch * (mobile ? 0.4 : 0.53);
+      const cy = ch * (mobile ? 0.42 : 0.62 - 0.09 * intro);
       let drawn = false;
       if (count) {
         // Use the nearest frame that has loaded, so fast scrolling never shows a blank canvas.

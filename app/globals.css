@@ -54,7 +54,7 @@ h3 { font-size: 1.15rem; }
 .story-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transform: scale(0.94); transition: opacity 0.9s ease, transform 1.1s cubic-bezier(0.2, 0.8, 0.2, 1); }
 .story-stage.has-media canvas { opacity: 1; transform: none; }
 /* Giant tagline behind the dessert: pale enough that dark copy reads on top of it */
-.story-word { position: absolute; left: 0; right: 0; top: 50%; display: flex; justify-content: center; gap: 0.22em; font-family: var(--font-ar), sans-serif; font-size: clamp(6rem, 17vw, 19rem); font-weight: 800; line-height: 1; color: #b7d3ee; pointer-events: none; user-select: none; white-space: nowrap;
+.story-word { position: absolute; left: 0; right: 0; top: 40%; display: flex; justify-content: center; gap: 0.22em; font-family: var(--font-ar), sans-serif; font-size: clamp(6rem, 17vw, 19rem); font-weight: 800; line-height: 1; color: #b7d3ee; pointer-events: none; user-select: none; white-space: nowrap;
   transform: translateY(calc(-62% - var(--intro, 0) * 14vh)) scale(calc(1 - var(--intro, 0) * 0.12)); opacity: calc(1 - var(--intro, 0) * 0.55); }
 .story-word span { display: inline-block; animation: rise 1s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
 @keyframes rise { from { transform: translateY(45%); opacity: 0; } }
@@ -166,7 +166,7 @@ h3 { font-size: 1.15rem; }
   .story-copy h1, .story-copy h2 { font-size: clamp(1.7rem, 8vw, 2.4rem); }
   .story-hint { bottom: 3vh; }
   .story-dots { bottom: auto; top: 72px; }
-  .story-word { top: 40%; font-size: 23vw; }
+  .story-word { top: 30%; font-size: 23vw; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
