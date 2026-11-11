@@ -63,7 +63,8 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
   const canvas = useRef<HTMLCanvasElement>(null);
   const stage = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
-  const [hero, setHero] = useState(true);
+  // Scene whose copy is on screen, or -1 while the dessert is moving (copy never sits on it).
+  const [shown, setShown] = useState(-1);
   const [hasMedia, setHasMedia] = useState(false);
   const [portrait, setPortrait] = useState<boolean | null>(null);
 
@@ -91,6 +92,8 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
     const stills = count ? [] : scenes.map((_, i) => load(asset(`/story/d/k${i + 1}.webp`)));
 
     let progress = 0;
+    let shownRef = -2;
+    let hasMediaRef = false;
     let raf = 0;
 
     const draw = () => {
@@ -119,10 +122,15 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
       } else {
         drawn = paint(ctx, stills[Math.round(f)], cx, cy, w, false);
       }
-      if (drawn) setHasMedia(true);
-      // The big word behind drifts up and fades as the story moves on.
+      if (drawn && !hasMediaRef) { hasMediaRef = true; setHasMedia(true); }
+      // The big word behind drifts up and fades, and the chocolate line draws itself.
       stage.current?.style.setProperty("--intro", intro.toFixed(3));
-      setHero(f < 0.18);
+      stage.current?.style.setProperty("--p", progress.toFixed(4));
+      // Copy shows only while the dessert holds still on one side.
+      const a = Math.min(Math.floor(f), scenes.length - 1);
+      const frac = f - a;
+      const next = intro < 0.9 ? -1 : frac <= 0.3 ? a : frac >= 0.7 ? a + 1 : -1;
+      if (next !== shownRef) { shownRef = next; setShown(next); }
     };
     const schedule = () => { if (!raf) raf = requestAnimationFrame(draw); };
 
@@ -136,7 +144,6 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
       const r = el.getBoundingClientRect();
       const total = r.height - window.innerHeight;
       progress = Math.min(1, Math.max(0, -r.top / (total || 1)));
-      setActive(Math.min(scenes.length - 1, Math.round(progress * (scenes.length - 1))));
       schedule();
     };
 
@@ -169,6 +176,8 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
     return () => window.removeEventListener("scroll", onScroll);
   }, [scenes]);
 
+  const current = hasMedia ? shown : active;
+
   return (
     <section ref={wrap} className="story-scroll" style={{ height: `${scenes.length * 100}vh` }}>
       <div ref={stage} className={`story-stage ${hasMedia ? "has-media" : ""}`}>
@@ -178,7 +187,7 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
         </span>
         <canvas ref={canvas} aria-hidden="true" />
         {scenes.map((s, i) => (
-          <div key={i} className={`story-copy ${sideOf(i) > 0 ? "text-left" : "text-right"} ${i === active && !(hero && hasMedia) ? "on" : ""}`} aria-hidden={i !== active} inert={i !== active}>
+          <div key={i} className={`story-copy ${sideOf(i) > 0 ? "text-left" : "text-right"} ${i === current ? "on" : ""}`} aria-hidden={i !== current} inert={i !== current}>
             {i === 0 ? <h1>{s.title}</h1> : <h2>{s.title}</h2>}
             <p>{s.text}</p>
             {i === scenes.length - 1 && ctas.length > 0 && (
@@ -190,10 +199,11 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
             )}
           </div>
         ))}
-        <ol className="story-dots" aria-hidden="true">
-          {scenes.map((_, i) => <li key={i} className={i === active ? "on" : ""} />)}
-        </ol>
-        <span className={`story-hint ${active || !hero ? "gone" : ""}`}>{hint} ↓</span>
+        {/* Progress: a hand-drawn chocolate line that draws itself as you scroll. */}
+        <svg className="story-line" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
+          <path pathLength={1} d="M10 34 C 90 6, 150 58, 230 30 S 370 8, 450 34 S 590 58, 670 28 S 810 6, 890 32 S 960 44, 990 26" />
+        </svg>
+        <span className="story-hint">{hint}</span>
       </div>
     </section>
   );

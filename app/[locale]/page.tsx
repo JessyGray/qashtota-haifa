@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { dict, isLocale } from "@/lib/i18n";
+import { dict, isLocale, locales } from "@/lib/i18n";
 import { INSTAGRAM_URL, itemName, items, MAPS_URL, ORDER_URL, PHONE, SIGNATURE, SITE_URL } from "@/lib/site";
 import ScrollStory from "@/components/ScrollStory";
 import FlavourWall from "@/components/FlavourWall";
@@ -44,7 +44,8 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         hint={t.scrollHint}
         ctas={[{ href: `/${locale}/menu`, label: t.menu.fullMenu }, { href: ORDER_URL, label: t.nav.order, external: true }]}
       />
-      <Marquee words={t.marquee} />
+      {/* Haifa speaks four languages, so the band does too: each line in all of them, this page's first. */}
+      <Marquee words={t.marquee.flatMap((_, k) => [locale, ...locales.filter((l) => l !== locale)].map((l) => dict[l].marquee[k]))} />
 
       <FlavourWall
         items={wall}
@@ -87,8 +88,6 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </div>
         </div>
       </section>
-
-      <Marquee words={t.marquee} tone="light" />
 
       <section className="section insta">
         <div className="insta-head">
