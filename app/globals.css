@@ -262,14 +262,14 @@ h3 { font-size: 1.15rem; }
 .wall-head { padding-inline: clamp(20px, 6vw, 96px); max-width: 900px; }
 .wall-head .lead { margin: 0; }
 .wall-track { display: flex; gap: clamp(16px, 2vw, 28px); padding-inline: clamp(20px, 6vw, 96px); will-change: transform; }
-.wall-item { flex: 0 0 clamp(260px, 26vw, 380px); display: grid; gap: 12px; align-content: start; }
-.wall-item .photo { aspect-ratio: 4 / 5; border-radius: 28px; overflow: hidden; background: #dbe8f4; }
+.wall-item { flex: 0 0 clamp(240px, min(25vw, 46vh), 380px); display: grid; gap: 12px; align-content: start; }
+.wall-item .photo { aspect-ratio: 1; border-radius: 28px; overflow: hidden; background: #dbe8f4; }
 .wall-item .photo img { width: 100%; height: 100%; object-fit: cover; }
 .wall-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
 .wall-meta h3 { margin: 0; font-size: clamp(1.2rem, 1.6vw, 1.5rem); }
 .wall-meta strong { font-size: 1.2rem; color: var(--blue); white-space: nowrap; }
 .wall-item .btn { justify-self: start; }
-.wall-more { flex: 0 0 clamp(220px, 20vw, 300px); align-self: stretch; display: grid; place-items: center; text-align: center; border-radius: 28px; background: var(--blue); color: #fff; font-family: var(--font-display); font-size: clamp(1.4rem, 2.2vw, 2rem); font-weight: 700; text-decoration: none; padding: 24px; aspect-ratio: 4 / 5; transition: background 0.2s; }
+.wall-more { flex: 0 0 clamp(220px, min(22vw, 40vh), 320px); align-self: stretch; display: grid; place-items: center; text-align: center; border-radius: 28px; background: var(--blue); color: #fff; font-family: var(--font-display); font-size: clamp(1.4rem, 2.2vw, 2rem); font-weight: 700; text-decoration: none; padding: 24px; aspect-ratio: 1; transition: background 0.2s; }
 .wall-more:hover { background: var(--deep); }
 @media (max-width: 899px), (hover: none) {
   .wall-pin { position: static; min-height: 0; padding: 64px 0 48px; }
