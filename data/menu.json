@@ -544,7 +544,7 @@
     "ru": "Йогурт средний"
    },
    "price": 29.0,
-   "photo": "/menu/m35.webp",
+   "photo": "/menu/m34.webp",
    "active": true
   },
   {
@@ -558,7 +558,7 @@
     "ru": "Йогурт большой"
    },
    "price": 35.0,
-   "photo": "/menu/m36.webp",
+   "photo": "/menu/m34.webp",
    "active": true
   },
   {
@@ -810,7 +810,7 @@
     "ru": "Горячий шоколад большой"
    },
    "price": 18.0,
-   "photo": "/menu/m54.webp",
+   "photo": "/menu/m53.webp",
    "active": true
   },
   {
@@ -838,7 +838,7 @@
     "ru": "Сахлаб большой"
    },
    "price": 18.0,
-   "photo": "/menu/m56.webp",
+   "photo": "/menu/m55.webp",
    "active": true
   },
   {
@@ -866,7 +866,7 @@
     "ru": "Нескафе / капучино большой"
    },
    "price": 18.0,
-   "photo": "/menu/m58.webp",
+   "photo": "/menu/m57.webp",
    "active": true
   }
  ]
