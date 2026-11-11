@@ -62,6 +62,7 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
   const wrap = useRef<HTMLElement>(null);
   const canvas = useRef<HTMLCanvasElement>(null);
   const stage = useRef<HTMLDivElement>(null);
+  const line = useRef<SVGPathElement>(null);
   const [active, setActive] = useState(0);
   // Scene whose copy is on screen, or -1 while the dessert is moving (copy never sits on it).
   const [shown, setShown] = useState(-1);
@@ -100,10 +101,12 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
       raf = 0;
       const { width: cw, height: ch } = cv;
       ctx.clearRect(0, 0, cw, ch);
-      const f = progress * (scenes.length - 1);
+      // The first screen of scroll is the intro (dessert centred, tagline behind); the scenes follow.
+      const total = progress * scenes.length;
+      const intro = ease(Math.min(1, total));
+      const f = Math.max(0, total - 1);
       // At the very top the dessert sits centred in front of the big tagline. As soon as the
       // story starts it moves to one side and the copy appears on the other.
-      const intro = ease(Math.min(1, f / 0.45));
       const x = sideAt(f, scenes.length) * intro;
       // Desktop: a bit more than half the width, in the half away from the text.
       // Phones: nearly full width in the upper part, text below.
@@ -125,7 +128,10 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
       if (drawn && !hasMediaRef) { hasMediaRef = true; setHasMedia(true); }
       // The big word behind drifts up and fades, and the chocolate line draws itself.
       stage.current?.style.setProperty("--intro", intro.toFixed(3));
-      stage.current?.style.setProperty("--p", progress.toFixed(4));
+      if (line.current) {
+        line.current.style.strokeDashoffset = String(1 - progress);
+        line.current.style.opacity = progress > 0.004 ? "0.85" : "0";
+      }
       // Copy shows only while the dessert holds still on one side.
       const a = Math.min(Math.floor(f), scenes.length - 1);
       const frac = f - a;
@@ -179,7 +185,7 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
   const current = hasMedia ? shown : active;
 
   return (
-    <section ref={wrap} className="story-scroll" style={{ height: `${scenes.length * 100}vh` }}>
+    <section ref={wrap} className="story-scroll" style={{ height: `${(scenes.length + 1) * 100}vh` }}>
       <div ref={stage} className={`story-stage ${hasMedia ? "has-media" : ""}`}>
         {/* The shop's tagline in its own Arabic, set huge behind the dessert. Decorative. */}
         <span className="story-word" dir="rtl" lang="ar" aria-hidden="true">
@@ -201,7 +207,7 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
         ))}
         {/* Progress: a hand-drawn chocolate line that draws itself as you scroll. */}
         <svg className="story-line" viewBox="0 0 1000 60" preserveAspectRatio="none" aria-hidden="true">
-          <path pathLength={1} d="M10 34 C 90 6, 150 58, 230 30 S 370 8, 450 34 S 590 58, 670 28 S 810 6, 890 32 S 960 44, 990 26" />
+          <path ref={line} pathLength={1} d="M10 34 C 90 6, 150 58, 230 30 S 370 8, 450 34 S 590 58, 670 28 S 810 6, 890 32 S 960 44, 990 26" />
         </svg>
         <span className="story-hint">{hint}</span>
       </div>

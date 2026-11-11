@@ -19,6 +19,7 @@ h1, h2, h3, .display { font-family: var(--font-display); }
 :root { --font-display: var(--font-round), sans-serif; }
 :lang(ar) { --font-display: var(--font-ar), sans-serif; }
 :lang(ru) { --font-display: var(--font-ru), sans-serif; }
+:lang(he), :lang(en) { --font-display: var(--font-round), sans-serif; }
 h1, h2, h3 { line-height: 1.15; margin: 0 0 0.5em; color: var(--deep); text-wrap: balance; }
 h1 { font-size: clamp(2rem, 6vw, 4rem); font-weight: 800; }
 h2 { font-size: clamp(1.7rem, 4.2vw, 2.8rem); font-weight: 800; }
@@ -69,7 +70,7 @@ h3 { font-size: 1.15rem; }
 .story-copy p { font-size: clamp(1.05rem, 1.6vw, 1.3rem); margin: 0; color: var(--ink); }
 .story-line { position: absolute; left: 6vw; right: 6vw; bottom: 3vh; width: 88vw; height: 34px; overflow: visible; pointer-events: none; }
 [dir="rtl"] .story-line { transform: scaleX(-1); }
-.story-line path { fill: none; stroke: #5b3a26; stroke-width: 5; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--p, 0)); opacity: 0.85; }
+.story-line path { fill: none; stroke: #5b3a26; stroke-width: 5; stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: 0; }
 .story-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
 .story-copy.on .story-cta { pointer-events: auto; }
 .story-hint { position: absolute; bottom: 8vh; left: 50%; transform: translateX(-50%); color: var(--deep); font-weight: 600; opacity: calc(1 - var(--intro, 0) * 2.5); }
@@ -178,7 +179,7 @@ h3 { font-size: 1.15rem; }
 .marquee-track { display: flex; width: max-content; animation: slide 90s linear infinite; }
 [dir="rtl"] .marquee-track { animation-direction: reverse; }
 .marquee-track span { display: flex; }
-.marquee b { display: inline-flex; align-items: center; font-family: var(--font-round), var(--font-ar), var(--font-ru), sans-serif; font-size: clamp(1.6rem, 4vw, 3rem); font-weight: 700; white-space: nowrap; padding-inline: 0.4em; }
+.marquee b { display: inline-flex; align-items: center; font-family: var(--font-display); font-size: clamp(1.6rem, 4vw, 3rem); font-weight: 700; white-space: nowrap; padding-inline: 0.4em; }
 .marquee i { display: inline-block; width: 0.32em; height: 0.32em; margin-inline-start: 0.8em; border-radius: 50%; background: var(--ice); }
 @keyframes slide { to { transform: translateX(-50%); } }
 
@@ -255,13 +256,13 @@ h3 { font-size: 1.15rem; }
 
 /* Flavour wall: pinned on wide screens, the row slides sideways with the scroll */
 .wall { position: relative; background: var(--paper); }
-.wall-pin { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; flex-direction: column; justify-content: center; gap: 28px; overflow: hidden; overflow: clip; padding: 24px 0; }
+.wall-pin { position: sticky; top: 0; height: 100vh; height: 100svh; display: flex; flex-direction: column; justify-content: center; gap: clamp(14px, 3vh, 28px); overflow: hidden; overflow: clip; padding: 64px 0 16px; }
 .wall-head { padding-inline: clamp(20px, 6vw, 96px); max-width: 900px; }
 .wall-head .lead { margin: 0; }
 .wall-track { display: flex; gap: clamp(16px, 2vw, 28px); padding-inline: clamp(20px, 6vw, 96px); will-change: transform; }
-.wall-item { position: relative; flex: 0 0 clamp(220px, min(24vw, 44vh), 360px); display: grid; gap: 10px; align-content: start; color: inherit; text-decoration: none; }
+.wall-item { position: relative; flex: 0 0 clamp(200px, min(22vw, 38vh), 340px); display: grid; gap: 10px; align-content: start; color: inherit; text-decoration: none; }
 /* Every other photo sits lower and taller, like trays lined up on a counter */
-.wall-item:nth-child(even) { margin-top: 5vh; }
+.wall-item:nth-child(even) { margin-top: 3vh; }
 .wall-item:nth-child(even) .photo { aspect-ratio: 4 / 5; }
 .wall-item .photo { aspect-ratio: 1; border-radius: 28px; overflow: hidden; background: #dbe8f4; }
 .wall-item .photo img { width: 100%; height: 100%; object-fit: cover; }
@@ -271,7 +272,7 @@ h3 { font-size: 1.15rem; }
 .wall-price { position: absolute; top: 14px; inset-inline-end: 14px; background: var(--blue); color: #fff; font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; padding: 8px 14px; border-radius: 12px; transform: rotate(-7deg); box-shadow: 0 8px 18px rgba(0, 80, 160, 0.3); white-space: nowrap; }
 .wall-item:hover .photo img { transform: scale(1.04); }
 .wall-item .photo img { transition: transform 0.5s; }
-.wall-more { flex: 0 0 clamp(220px, min(22vw, 40vh), 320px); align-self: stretch; display: grid; place-items: center; text-align: center; border-radius: 28px; background: var(--blue); color: #fff; font-family: var(--font-display); font-size: clamp(1.4rem, 2.2vw, 2rem); font-weight: 700; text-decoration: none; padding: 24px; aspect-ratio: 1; transition: background 0.2s; }
+.wall-more { flex: 0 0 clamp(200px, min(20vw, 36vh), 300px); align-self: stretch; display: grid; place-items: center; text-align: center; border-radius: 28px; background: var(--blue); color: #fff; font-family: var(--font-display); font-size: clamp(1.4rem, 2.2vw, 2rem); font-weight: 700; text-decoration: none; padding: 24px; aspect-ratio: 1; transition: background 0.2s; }
 .wall-more:hover { background: var(--deep); }
 @media (max-width: 899.98px), (hover: none) {
   .wall-pin { position: static; height: auto; padding: 64px 0 48px; }

@@ -42,7 +42,7 @@ export default function FlavourWall({ items, locale, title, text, more }: { item
       if (!dist || !(e.target instanceof HTMLElement)) return;
       const card = e.target.closest<HTMLElement>(".wall-item, .wall-more");
       if (!card) return;
-      const offset = dir < 0 ? card.offsetLeft : tr.scrollWidth - card.offsetLeft - card.offsetWidth;
+      const offset = dir < 0 ? card.offsetLeft : tr.clientWidth - card.offsetLeft - card.offsetWidth;
       const p = Math.min(1, Math.max(0, (offset - tr.clientWidth / 3) / dist));
       window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY + p * dist });
     };

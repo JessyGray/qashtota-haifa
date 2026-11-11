@@ -45,7 +45,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         ctas={[{ href: `/${locale}/menu`, label: t.menu.fullMenu }, { href: ORDER_URL, label: t.nav.order, external: true }]}
       />
       {/* Haifa speaks four languages, so the band does too: each line in all of them, this page's first. */}
-      <Marquee words={t.marquee.flatMap((_, k) => [locale, ...locales.filter((l) => l !== locale)].map((l) => dict[l].marquee[k]))} />
+      <Marquee words={t.marquee.flatMap((_, k) => [locale, ...locales.filter((l) => l !== locale)].map((l) => ({ text: dict[l].marquee[k], lang: l })))} />
 
       <FlavourWall
         items={wall}
