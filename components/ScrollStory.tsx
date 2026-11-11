@@ -15,46 +15,29 @@ function load(src: string) {
   return img;
 }
 
-// Draws an image to fill the canvas like object-fit: cover.
-function cover(ctx: CanvasRenderingContext2D, img: HTMLImageElement, alpha = 1) {
-  if (!img.complete || !img.naturalWidth) return false;
-  const { width: cw, height: ch } = ctx.canvas;
-  const s = Math.max(cw / img.naturalWidth, ch / img.naturalHeight);
-  const w = img.naturalWidth * s;
-  const h = img.naturalHeight * s;
-  ctx.globalAlpha = alpha;
-  ctx.drawImage(img, (cw - w) / 2, (ch - h) / 2, w, h);
-  ctx.globalAlpha = 1;
-  return true;
-}
-
 // Phone frames are the 16:9 video padded to 9:16 with smeared edges. Only rows 300..876 of the
-// 720x1280 frame are real footage, so on phones we draw that band across the full width at 40%
-// height and fade its edges into the page instead of stretching the smear over the screen.
+// 720x1280 frame are real footage, so on phones we crop to that band.
 const BAND = { y: 300, h: 576 };
-function band(ctx: CanvasRenderingContext2D, img: HTMLImageElement) {
+
+// Draws the dessert frame into a box centred at (cx, cy) with width w, then fades the box edges
+// into the page with an elliptical mask, so the dessert floats on the page colour.
+function paint(ctx: CanvasRenderingContext2D, img: HTMLImageElement, cx: number, cy: number, w: number, portrait: boolean) {
   if (!img.complete || !img.naturalWidth) return false;
-  const { width: cw, height: ch } = ctx.canvas;
   const k = img.naturalHeight / 1280;
-  const h = (cw * BAND.h * k) / img.naturalWidth;
-  const top = ch * 0.4 - h / 2;
-  ctx.drawImage(img, 0, BAND.y * k, img.naturalWidth, BAND.h * k, 0, top, cw, h);
+  const [sy, sh] = portrait ? [BAND.y * k, BAND.h * k] : [0, img.naturalHeight];
+  const h = (w * sh) / img.naturalWidth;
+  ctx.drawImage(img, 0, sy, img.naturalWidth, sh, cx - w / 2, cy - h / 2, w, h);
+  ctx.save();
   ctx.globalCompositeOperation = "destination-in";
-  const v = ctx.createLinearGradient(0, top, 0, top + h);
-  v.addColorStop(0, "rgba(0,0,0,0)");
-  v.addColorStop(0.14, "#000");
-  v.addColorStop(0.86, "#000");
-  v.addColorStop(1, "rgba(0,0,0,0)");
-  ctx.fillStyle = v;
-  ctx.fillRect(0, 0, cw, ch);
-  const hz = ctx.createLinearGradient(0, 0, cw, 0);
-  hz.addColorStop(0, "rgba(0,0,0,0)");
-  hz.addColorStop(0.08, "#000");
-  hz.addColorStop(0.92, "#000");
-  hz.addColorStop(1, "rgba(0,0,0,0)");
-  ctx.fillStyle = hz;
-  ctx.fillRect(0, 0, cw, ch);
-  ctx.globalCompositeOperation = "source-over";
+  ctx.translate(cx, cy);
+  ctx.scale(w / 2, h / 2);
+  const g = ctx.createRadialGradient(0, 0, 0, 0, 0, 1);
+  g.addColorStop(0, "#000");
+  g.addColorStop(0.62, "#000");
+  g.addColorStop(0.98, "rgba(0,0,0,0)");
+  ctx.fillStyle = g;
+  ctx.fillRect(-20, -20, 40, 40);
+  ctx.restore();
   return true;
 }
 
@@ -62,16 +45,13 @@ function band(ctx: CanvasRenderingContext2D, img: HTMLImageElement) {
 const sideOf = (i: number) => (i % 2 === 0 ? 1 : -1);
 const ease = (t: number) => t * t * (3 - 2 * t);
 
-// Pose of the dessert for a scroll position f (0..scenes-1). At the top the video fills the
-// screen as before. During the first scene the background melts into the page colour and the
-// dessert comes forward and grows, then it glides from one half to the other between scenes.
-function pose(f: number, n: number) {
+// Horizontal position (-1..1) of the dessert for a scroll position f (0..scenes-1).
+// It holds still for most of a scene and glides to the other half between scenes.
+function sideAt(f: number, n: number) {
   const a = Math.floor(f);
   const b = Math.min(a + 1, n - 1);
   const t = ease(Math.min(1, Math.max(0, (f - a - 0.3) / 0.4)));
-  const x = sideOf(a) + (sideOf(b) - sideOf(a)) * t;
-  const intro = ease(Math.min(1, f / 0.6));
-  return { x: x * intro, scale: 1 + 0.14 * intro, reveal: intro };
+  return sideOf(a) + (sideOf(b) - sideOf(a)) * t;
 }
 
 const PORTRAIT_MQ = "(max-width: 760px), (orientation: portrait) and (max-width: 1100px)";
@@ -104,43 +84,38 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
     if (!ctx) return;
 
     const mobile = portrait;
-    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const count = mobile ? SEQ_MOBILE : SEQ_DESKTOP;
+        const count = mobile ? SEQ_MOBILE : SEQ_DESKTOP;
     const dir = mobile ? "m" : "d";
     const frames = Array.from({ length: count }, (_, i) => load(asset(`/seq/${dir}/${pad(i + 1)}.webp`)));
-    const stills = count ? [] : scenes.map((_, i) => load(asset(`/story/${mobile ? "m" : "d"}/k${i + 1}.webp`)));
+    const stills = count ? [] : scenes.map((_, i) => load(asset(`/story/d/k${i + 1}.webp`)));
 
     let progress = 0;
     let raf = 0;
 
     const draw = () => {
       raf = 0;
-      ctx.clearRect(0, 0, cv.width, cv.height);
+      const { width: cw, height: ch } = cv;
+      ctx.clearRect(0, 0, cw, ch);
+      const f = progress * (scenes.length - 1);
+      const x = sideAt(f, scenes.length);
+      // Desktop: the dessert takes a bit more than half the width and sits in the half away from
+      // the text. Phones: nearly full width in the upper part, text below.
+      const w = mobile ? cw * 0.96 : Math.min(cw * 0.56, ch * 0.74 * (16 / 9));
+      const cx = cw / 2 + x * (mobile ? cw * 0.03 : cw * 0.21);
+      const cy = ch * (mobile ? 0.4 : 0.53);
       let drawn = false;
       if (count) {
         // Use the nearest frame that has loaded, so fast scrolling never shows a blank canvas.
         const target = Math.round(progress * (count - 1));
-        const paint = mobile ? band : cover;
         for (let d = 0; d < count && !drawn; d++) {
-          drawn = (target - d >= 0 && paint(ctx, frames[target - d])) || (target + d < count && paint(ctx, frames[target + d]));
+          drawn = (target - d >= 0 && paint(ctx, frames[target - d], cx, cy, w, mobile)) || (target + d < count && paint(ctx, frames[target + d], cx, cy, w, mobile));
         }
       } else {
-        const x = progress * (stills.length - 1);
-        const a = Math.floor(x);
-        const b = Math.min(a + 1, stills.length - 1);
-        drawn = cover(ctx, stills[a]);
-        if (b !== a) cover(ctx, stills[b], x - a);
+        drawn = paint(ctx, stills[Math.round(f)], cx, cy, w, false);
       }
       if (drawn) setHasMedia(true);
-      const f = progress * (scenes.length - 1);
-      const p = pose(f, scenes.length);
-      // The side glide follows the scroll and keeps the text clear, so it stays with reduced motion;
-      // only the zoom is dropped.
-      const amp = mobile ? 0.12 : 0.22; // share of viewport width
-      cv.style.transform = `translate3d(${(p.x * amp * 100).toFixed(2)}vw,0,0) scale(${(still ? 1 : p.scale).toFixed(3)})`;
-      // The mask starts far larger than the screen (no visible edge) and closes around the dessert.
-      const st = stage.current;
-      if (st) st.style.setProperty("--reveal", p.reveal.toFixed(3));
+      // The big word behind drifts up and fades as the story moves on.
+      stage.current?.style.setProperty("--p", progress.toFixed(3));
     };
     const schedule = () => { if (!raf) raf = requestAnimationFrame(draw); };
 
@@ -190,7 +165,10 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
   return (
     <section ref={wrap} className="story-scroll" style={{ height: `${scenes.length * 100}vh` }}>
       <div ref={stage} className={`story-stage ${hasMedia ? "has-media" : ""}`}>
-        <span className="story-word" aria-hidden="true">QASHTOTA</span>
+        {/* The shop's tagline in its own Arabic, set huge behind the dessert. Decorative. */}
+        <span className="story-word" dir="rtl" lang="ar" aria-hidden="true">
+          {["حلّو", "يا", "حلّو"].map((w, i) => <span key={i} style={{ animationDelay: `${0.15 + i * 0.12}s` }}>{w}</span>)}
+        </span>
         <canvas ref={canvas} aria-hidden="true" />
         {scenes.map((s, i) => (
           <div key={i} className={`story-copy ${sideOf(i) > 0 ? "text-left" : "text-right"} ${i === active ? "on" : ""}`} aria-hidden={i !== active} inert={i !== active}>

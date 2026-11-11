@@ -1,11 +1,13 @@
 import Link from "next/link";
 import { dict, localeNames, locales, type Locale } from "@/lib/i18n";
 import { ORDER_URL } from "@/lib/site";
+import HeaderHide from "./HeaderHide";
 
 export default function Header({ locale }: { locale: Locale }) {
   const t = dict[locale].nav;
   return (
     <header className="header">
+      <HeaderHide />
       <Link href={`/${locale}`} className="logo" aria-label="Qashtota Haifa">
         <img src="/brand/logo-white.png" alt="قشطوطة" width={140} height={52} />
       </Link>

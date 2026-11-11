@@ -15,6 +15,10 @@ html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body { margin: 0; background: #fff; color: var(--ink); line-height: 1.55; font-size: 17px; }
 img { max-width: 100%; display: block; }
 a { color: var(--blue); }
+h1, h2, h3, .display { font-family: var(--font-display); }
+:root { --font-display: var(--font-round), sans-serif; }
+:lang(ar) { --font-display: var(--font-ar), sans-serif; }
+:lang(ru) { --font-display: var(--font-ru), sans-serif; }
 h1, h2, h3 { line-height: 1.15; margin: 0 0 0.5em; color: var(--deep); text-wrap: balance; }
 h1 { font-size: clamp(2rem, 6vw, 4rem); font-weight: 800; }
 h2 { font-size: clamp(1.7rem, 4.2vw, 2.8rem); font-weight: 800; }
@@ -34,6 +38,8 @@ h3 { font-size: 1.15rem; }
 .nav { display: flex; gap: 22px; }
 .nav a { color: #fff; text-decoration: none; font-weight: 500; }
 .nav a:hover { color: var(--ice); }
+.header { transition: transform 0.35s ease; }
+.header-away { transform: translateY(-100%); }
 .header-end { display: flex; align-items: center; gap: 12px; }
 .lang { position: relative; color: #fff; }
 .lang summary { list-style: none; cursor: pointer; font-weight: 700; padding: 6px 10px; border-radius: 999px; box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.7); }
@@ -45,10 +51,13 @@ h3 { font-size: 1.15rem; }
 /* Scroll story: the dessert floats on the page colour and glides between the two halves */
 .story-scroll { position: relative; background: var(--paper); }
 .story-stage { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; background: radial-gradient(90% 80% at 50% 45%, #eef4fa, var(--paper) 60%, #dde9f4); }
-.story-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; will-change: transform; transform-origin: 50% 54%;
-  --mx: calc(150% - 114% * var(--reveal, 0)); --my: calc(150% - 104% * var(--reveal, 0));
-  -webkit-mask-image: radial-gradient(ellipse var(--mx) var(--my) at 50% 54%, #000 62%, transparent 100%); mask-image: radial-gradient(ellipse var(--mx) var(--my) at 50% 54%, #000 62%, transparent 100%); }
-.story-word { position: absolute; inset: auto 0 6vh; text-align: center; font-size: clamp(4rem, 16vw, 15rem); font-weight: 900; line-height: 1; color: transparent; -webkit-text-stroke: 2px rgba(31, 101, 171, 0.12); pointer-events: none; user-select: none; white-space: nowrap; }
+.story-stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transform: scale(0.94); transition: opacity 0.9s ease, transform 1.1s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.story-stage.has-media canvas { opacity: 1; transform: none; }
+/* Giant tagline behind the dessert: pale enough that dark copy reads on top of it */
+.story-word { position: absolute; left: 0; right: 0; top: 50%; display: flex; justify-content: center; gap: 0.22em; font-family: var(--font-ar), sans-serif; font-size: clamp(6rem, 19vw, 21rem); font-weight: 800; line-height: 1; color: #c9dff3; pointer-events: none; user-select: none; white-space: nowrap;
+  transform: translateY(calc(-50% - var(--p, 0) * 40vh)); opacity: calc(1 - var(--p, 0) * 0.6); }
+.story-word span { display: inline-block; animation: rise 1s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+@keyframes rise { from { transform: translateY(45%); opacity: 0; } }
 .story-copy { position: absolute; top: 50%; width: min(34vw, 460px); opacity: 0; transform: translateY(-40%); transition: opacity 0.5s, transform 0.6s; pointer-events: none; }
 .story-copy.on { opacity: 1; transform: translateY(-50%); }
 .story-copy.text-left { left: 6vw; text-align: left; }
@@ -152,14 +161,12 @@ h3 { font-size: 1.15rem; }
 @media (max-width: 360px) { .hours td:first-child { white-space: normal; } }
 /* Phones and portrait tablets: the dessert sits in the upper part, the text below it */
 @media (max-width: 760px), (orientation: portrait) and (max-width: 1100px) {
-  .story-stage canvas { transform-origin: 50% 40%; --mx: calc(150% - 104% * var(--reveal, 0)); --my: calc(150% - 118% * var(--reveal, 0));
-    -webkit-mask-image: radial-gradient(ellipse var(--mx) var(--my) at 50% 40%, #000 60%, transparent 100%); mask-image: radial-gradient(ellipse var(--mx) var(--my) at 50% 40%, #000 60%, transparent 100%); }
   .story-copy, .story-copy.text-left, .story-copy.text-right { top: auto; bottom: 9svh; left: max(20px, 6vw); right: max(20px, 6vw); width: auto; text-align: start; transform: translateY(16px); }
   [dir] .story-copy.on { transform: none; }
   .story-copy h1, .story-copy h2 { font-size: clamp(1.7rem, 8vw, 2.4rem); }
   .story-hint { bottom: 3vh; }
   .story-dots { bottom: auto; top: 72px; }
-  .story-word { bottom: 34svh; font-size: 17vw; }
+  .story-word { top: 40%; font-size: 23vw; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -247,4 +254,30 @@ h3 { font-size: 1.15rem; }
 @media (max-width: 760px) {
   .collage { padding: 0 6% 16% 4%; margin-top: 12px; }
   .collage-a { left: -2%; }
+}
+
+/* Flavour wall: pinned on wide screens, the row slides sideways with the scroll */
+.wall { position: relative; background: var(--paper); }
+.wall-pin { position: sticky; top: 0; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; justify-content: center; gap: 28px; overflow: hidden; padding: 80px 0 40px; }
+.wall-head { padding-inline: clamp(20px, 6vw, 96px); max-width: 900px; }
+.wall-head .lead { margin: 0; }
+.wall-track { display: flex; gap: clamp(16px, 2vw, 28px); padding-inline: clamp(20px, 6vw, 96px); will-change: transform; }
+.wall-item { flex: 0 0 clamp(260px, 26vw, 380px); display: grid; gap: 12px; align-content: start; }
+.wall-item .photo { aspect-ratio: 4 / 5; border-radius: 28px; overflow: hidden; background: #dbe8f4; }
+.wall-item .photo img { width: 100%; height: 100%; object-fit: cover; }
+.wall-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.wall-meta h3 { margin: 0; font-size: clamp(1.2rem, 1.6vw, 1.5rem); }
+.wall-meta strong { font-size: 1.2rem; color: var(--blue); white-space: nowrap; }
+.wall-item .btn { justify-self: start; }
+.wall-more { flex: 0 0 clamp(220px, 20vw, 300px); align-self: stretch; display: grid; place-items: center; text-align: center; border-radius: 28px; background: var(--blue); color: #fff; font-family: var(--font-display); font-size: clamp(1.4rem, 2.2vw, 2rem); font-weight: 700; text-decoration: none; padding: 24px; aspect-ratio: 4 / 5; transition: background 0.2s; }
+.wall-more:hover { background: var(--deep); }
+@media (max-width: 899px), (hover: none) {
+  .wall-pin { position: static; min-height: 0; padding: 64px 0 48px; }
+  .wall-track { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: 6px; }
+  .wall-track::-webkit-scrollbar { display: none; }
+  .wall-item, .wall-more { scroll-snap-align: start; flex-basis: min(72vw, 320px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .story-word span { animation: none; }
+  .story-stage canvas { transition: none; }
 }
