@@ -104,10 +104,10 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
       const x = sideAt(f, scenes.length) * intro;
       // Desktop: a bit more than half the width, in the half away from the text.
       // Phones: nearly full width in the upper part, text below.
-      const big = Math.min(cw * 0.64, ch * 0.8 * (16 / 9));
-      const small = Math.min(cw * 0.56, ch * 0.74 * (16 / 9));
+      const big = Math.min(cw * 0.68, ch * 0.84 * (16 / 9));
+      const small = Math.min(cw * 0.6, ch * 0.8 * (16 / 9));
       const w = mobile ? cw * 0.96 : big + (small - big) * intro;
-      const cx = cw / 2 + x * (mobile ? cw * 0.03 : cw * 0.21);
+      const cx = cw / 2 + x * (mobile ? cw * 0.03 : cw * 0.22);
       const cy = ch * (mobile ? 0.42 : 0.62 - 0.09 * intro);
       let drawn = false;
       if (count) {
