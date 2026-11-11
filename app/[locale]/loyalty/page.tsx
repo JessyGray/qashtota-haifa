@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { dict, isLocale, locales } from "@/lib/i18n";
+import Photo from "@/components/Photo";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -18,11 +19,27 @@ export default async function LoyaltyPage({ params }: { params: Promise<{ locale
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const t = dict[locale].loyalty;
+  const club = dict[locale].club;
   return (
-    <main className="page">
+    <main className="page page-cover">
+      {/* Same cover as the menu: the club card lands on top of two trays it pays for */}
+      <header className="menu-cover">
+        <div className="menu-cover-text">
+          <h1>{t.title}</h1>
+          <p className="lead">{t.text}</p>
+        </div>
+        <div className="menu-cover-fan" aria-hidden="true">
+          <Photo path="/menu/m12.webp" alt="" className="fan-0" />
+          <Photo path="/menu/m11.webp" alt="" className="fan-2" />
+          <div className="club-card fan-card">
+            <img src="/brand/logo-white.png" alt="" />
+            <span className="club-name">{club.card}</span>
+            <strong>{club.pts}</strong>
+            <span className="club-free">{club.free}</span>
+          </div>
+        </div>
+      </header>
       <section className="section">
-        <h1>{t.title}</h1>
-        <p className="lead">{t.text}</p>
         <ul className="rules rules-dark">{t.rules.map((r, i) => <li key={i}>{r}</li>)}</ul>
         <div className="grid grid-3">
           {t.tiers.map((tier) => (

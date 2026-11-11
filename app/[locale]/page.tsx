@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { dict, isLocale, locales } from "@/lib/i18n";
-import { INSTAGRAM_URL, itemName, items, MAPS_URL, ORDER_URL, PHONE, SIGNATURE, SITE_URL } from "@/lib/site";
+import { INSTAGRAM_URL, itemName, items, MAPS_URL, ORDER_URL, PHONE, SIGNATURE, SITE_URL, WAZE_URL } from "@/lib/site";
 import ScrollStory from "@/components/ScrollStory";
 import FlavourWall from "@/components/FlavourWall";
 import Photo from "@/components/Photo";
@@ -127,6 +127,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
             <p><a href={`tel:${PHONE}`} dir="ltr">{t.visit.phone}</a></p>
             <p className="actions">
               <a className="btn" href={MAPS_URL} target="_blank" rel="noopener">{t.visit.map}</a>
+              <a className="btn btn-waze" href={WAZE_URL} target="_blank" rel="noopener">{t.visit.waze}</a>
               <a className="btn btn-ghost" href={ORDER_URL} target="_blank" rel="noopener">{t.nav.order}</a>
             </p>
           </div>

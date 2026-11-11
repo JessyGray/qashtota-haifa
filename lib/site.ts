@@ -6,6 +6,8 @@ export const INSTAGRAM_URL = "https://www.instagram.com/qashtotahaifa/";
 // Haat has no public link yet, so ordering goes to Instagram until NEXT_PUBLIC_ORDER_URL is set.
 export const ORDER_URL = process.env.NEXT_PUBLIC_ORDER_URL || INSTAGRAM_URL;
 export const PHONE = "+972529090978";
+// Waze opens straight into navigation to the shop.
+export const WAZE_URL = "https://waze.com/ul?navigate=yes&q=" + encodeURIComponent("Derech Ha'atzma'ut 78, Haifa");
 export const MAPS_URL = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent("Derech Ha'atzma'ut 78, Haifa");
 
 // Generated photos and frame sequences live in Vercel Blob; this is its public base URL.

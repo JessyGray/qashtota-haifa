@@ -126,6 +126,8 @@ h3 { font-size: 1.15rem; }
 .hours { border-collapse: collapse; margin-bottom: 16px; }
 .hours td { padding: 6px 0; padding-inline-end: clamp(14px, 4vw, 28px); white-space: nowrap; }
 .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-waze { background: #33ccff; color: #0b3550; }
+.btn-waze:hover { background: #12b8f0; }
 .map { width: 100%; aspect-ratio: 4 / 3; border: 0; border-radius: var(--radius); background: var(--studio); }
 
 .tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 24px; scrollbar-width: none; }
@@ -300,9 +302,10 @@ h3 { font-size: 1.15rem; }
 .menu-cover-fan .fan-0 { inset-inline-start: 0; top: 10%; transform: rotate(-9deg); animation-delay: 0.05s; }
 .menu-cover-fan .fan-1 { inset-inline-start: 21%; top: 0; z-index: 2; transform: rotate(2deg); animation-delay: 0.15s; }
 .menu-cover-fan .fan-2 { inset-inline-start: 42%; top: 14%; transform: rotate(10deg); animation-delay: 0.25s; }
+.menu-cover-fan .fan-card { position: absolute; z-index: 3; width: 66%; inset-inline-start: 17%; top: 22%; transform: rotate(-5deg); animation: fan-in 0.9s 0.3s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
 @keyframes fan-in { from { opacity: 0; translate: 0 40px; } }
 @media (max-width: 760px) {
   .menu-cover { grid-template-columns: 1fr; min-height: 0; padding-top: 88px; }
   .menu-cover-fan { order: -1; height: 64vw; }
 }
-@media (prefers-reduced-motion: reduce) { .menu-cover-fan .photo { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .menu-cover-fan .photo, .menu-cover-fan .fan-card { animation: none; } }

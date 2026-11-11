@@ -29,7 +29,7 @@ type Dict = {
     soon: string;
     cta: string;
   };
-  visit: { title: string; address: string; hoursTitle: string; hours: [string, string][]; phone: string; map: string };
+  visit: { title: string; address: string; hoursTitle: string; hours: [string, string][]; phone: string; map: string; waze: string };
   footer: { rights: string; source: string };
   account: { title: string; email: string; send: string; sent: string; points: string; qr: string; history: string; logout: string; notReady: string };
   admin: { title: string; notReady: string };
@@ -98,6 +98,7 @@ const he: Dict = {
     hours: [["ראשון עד רביעי", "08:00 עד 00:00"], ["חמישי עד שבת", "08:00 עד 01:00"]],
     phone: "052-909-0978",
     map: "לניווט",
+    waze: "ניווט ב-Waze",
   },
   footer: { rights: "קשטוטה חיפה", source: "המחירים והתפריט לפי התפריט הדיגיטלי של הסניף." },
   account: {
@@ -182,6 +183,7 @@ const ar: Dict = {
     hours: [["الأحد حتى الأربعاء", "08:00 حتى 00:00"], ["الخميس حتى السبت", "08:00 حتى 01:00"]],
     phone: "052-909-0978",
     map: "افتح الخريطة",
+    waze: "الطريق بـ Waze",
   },
   footer: { rights: "قشطوطة حيفا", source: "الأسعار والقائمة حسب القائمة الرقمية للفرع." },
   account: {
@@ -266,6 +268,7 @@ const en: Dict = {
     hours: [["Sunday to Wednesday", "08:00 to 00:00"], ["Thursday to Saturday", "08:00 to 01:00"]],
     phone: "052-909-0978",
     map: "Get directions",
+    waze: "Route in Waze",
   },
   footer: { rights: "Qashtota Haifa", source: "Menu and prices follow the branch's digital menu." },
   account: {
@@ -350,6 +353,7 @@ const ru: Dict = {
     hours: [["Вс, пн, вт, ср", "08:00 до 00:00"], ["Чт, пт, сб", "08:00 до 01:00"]],
     phone: "052-909-0978",
     map: "Построить маршрут",
+    waze: "Маршрут в Waze",
   },
   footer: { rights: "Каштота Хайфа", source: "Меню и цены по цифровому меню филиала." },
   account: {
