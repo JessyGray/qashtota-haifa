@@ -125,9 +125,9 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
               </tbody>
             </table>
             <p><a href={`tel:${PHONE}`} dir="ltr">{t.visit.phone}</a></p>
-            <p className="actions">
-              <a className="btn" href={MAPS_URL} target="_blank" rel="noopener">{t.visit.map}</a>
-              <a className="btn btn-waze" href={WAZE_URL} target="_blank" rel="noopener">{t.visit.waze}</a>
+            <p className="actions visit-actions">
+              <a className="btn" href={MAPS_URL} target="_blank" rel="noopener" aria-label={t.visit.map}>{t.visit.mapShort}</a>
+              <a className="btn btn-waze" href={WAZE_URL} target="_blank" rel="noopener" aria-label={t.visit.waze}>Waze</a>
               <a className="btn btn-ghost" href={ORDER_URL} target="_blank" rel="noopener">{t.nav.order}</a>
             </p>
           </div>

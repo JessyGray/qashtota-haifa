@@ -128,6 +128,9 @@ h3 { font-size: 1.15rem; }
 .actions { display: flex; gap: 12px; flex-wrap: wrap; }
 .btn-waze { background: #33ccff; color: #0b3550; }
 .btn-waze:hover { background: #12b8f0; }
+/* Map, Waze and Order stay on one row even in the narrow visit column. */
+.visit-actions { flex-wrap: nowrap; gap: 8px; }
+.visit-actions .btn { padding: 0.75em 1.1em; font-size: 0.95rem; white-space: nowrap; flex: 0 1 auto; }
 .map { width: 100%; aspect-ratio: 4 / 3; border: 0; border-radius: var(--radius); background: var(--studio); }
 
 .tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 24px; scrollbar-width: none; }
