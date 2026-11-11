@@ -134,7 +134,9 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
       if (drawn) setHasMedia(true);
       const f = progress * (scenes.length - 1);
       const p = pose(f, scenes.length);
-      const amp = still ? 0 : mobile ? 0.12 : 0.22; // share of viewport width
+      // The side glide follows the scroll and keeps the text clear, so it stays with reduced motion;
+      // only the zoom is dropped.
+      const amp = mobile ? 0.12 : 0.22; // share of viewport width
       cv.style.transform = `translate3d(${(p.x * amp * 100).toFixed(2)}vw,0,0) scale(${(still ? 1 : p.scale).toFixed(3)})`;
       // The mask starts far larger than the screen (no visible edge) and closes around the dessert.
       const st = stage.current;

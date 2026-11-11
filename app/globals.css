@@ -168,10 +168,10 @@ h3 { font-size: 1.15rem; }
 
 /* Fuller home sections */
 .display { font-size: clamp(2.2rem, 6vw, 4.6rem); font-weight: 900; letter-spacing: -0.01em; }
-.marquee { overflow: hidden; padding: 18px 0; }
+.marquee { overflow: hidden; padding: 18px 0; direction: ltr; }
 .marquee-blue { background: var(--blue); color: #fff; }
 .marquee-light { background: var(--studio); color: var(--deep); }
-.marquee-track { display: flex; width: max-content; direction: ltr; animation: slide 38s linear infinite; }
+.marquee-track { display: flex; width: max-content; animation: slide 38s linear infinite; }
 [dir="rtl"] .marquee-track { animation-direction: reverse; }
 .marquee-track span { display: flex; }
 .marquee b { font-size: clamp(1.6rem, 4vw, 3rem); font-weight: 900; white-space: nowrap; padding-inline: 0.4em; text-transform: uppercase; }
