@@ -61,8 +61,8 @@ h3 { font-size: 1.15rem; }
 .story-dots { position: absolute; left: 50%; bottom: 3.5vh; transform: translateX(-50%); list-style: none; margin: 0; padding: 0; display: flex; gap: 10px; }
 .story-dots li { width: 8px; height: 8px; border-radius: 50%; background: rgba(31, 101, 171, 0.25); transition: transform 0.3s, background 0.3s; }
 .story-dots li.on { background: var(--blue); transform: scale(1.5); }
-.story-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; pointer-events: auto; }
-[dir="ltr"] .story-copy.text-right .story-cta, [dir="rtl"] .story-copy.text-left .story-cta { justify-content: flex-end; }
+.story-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
+.story-copy.on .story-cta { pointer-events: auto; }
 .story-hint { position: absolute; bottom: 8vh; left: 50%; transform: translateX(-50%); color: var(--deep); font-weight: 600; transition: opacity 0.4s; animation: bob 2s ease-in-out infinite; }
 .story-hint.gone { opacity: 0; }
 @keyframes bob { 50% { transform: translate(-50%, 6px); } }
@@ -131,7 +131,7 @@ h3 { font-size: 1.15rem; }
 
 .footer { background: var(--deep); color: var(--ice); text-align: center; padding: 48px 16px; }
 .footer img { margin: 0 auto 16px; height: 44px; width: auto; }
-.footer a { color: #fff; }
+.footer a { color: #fff; white-space: nowrap; }
 .footer p { margin: 6px 0; }
 .footer .muted { color: var(--ice); opacity: 0.75; }
 
@@ -142,11 +142,14 @@ h3 { font-size: 1.15rem; }
   .nav .wide { display: none; }
   .logo img { height: 36px; }
   .split { grid-template-columns: 1fr; }
-  .grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .card-body h3 { overflow-wrap: break-word; hyphens: auto; }
   .card-body { padding: 12px; }
   .card-body h3 { font-size: 1rem; }
   .card-row { flex-direction: column; gap: 2px; }
 }
+/* Very narrow phones: let the day names wrap so the hours card fits */
+@media (max-width: 360px) { .hours td:first-child { white-space: normal; } }
 /* Phones and portrait tablets: the dessert sits in the upper part, the text below it */
 @media (max-width: 760px), (orientation: portrait) and (max-width: 1100px) {
   .story-stage canvas { transform-origin: 50% 40%; --mx: calc(150% - 104% * var(--reveal, 0)); --my: calc(150% - 118% * var(--reveal, 0));
@@ -156,7 +159,7 @@ h3 { font-size: 1.15rem; }
   .story-copy h1, .story-copy h2 { font-size: clamp(1.7rem, 8vw, 2.4rem); }
   .story-hint { bottom: 3vh; }
   .story-dots { bottom: auto; top: 72px; }
-  .story-word { bottom: 34svh; font-size: 26vw; }
+  .story-word { bottom: 34svh; font-size: 17vw; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -168,7 +171,7 @@ h3 { font-size: 1.15rem; }
 .marquee { overflow: hidden; padding: 18px 0; }
 .marquee-blue { background: var(--blue); color: #fff; }
 .marquee-light { background: var(--studio); color: var(--deep); }
-.marquee-track { display: flex; width: max-content; animation: slide 38s linear infinite; }
+.marquee-track { display: flex; width: max-content; direction: ltr; animation: slide 38s linear infinite; }
 [dir="rtl"] .marquee-track { animation-direction: reverse; }
 .marquee-track span { display: flex; }
 .marquee b { font-size: clamp(1.6rem, 4vw, 3rem); font-weight: 900; white-space: nowrap; padding-inline: 0.4em; text-transform: uppercase; }
@@ -199,10 +202,11 @@ h3 { font-size: 1.15rem; }
   background: radial-gradient(120% 140% at 10% 0%, var(--sky), var(--blue) 50%, #0b3f78); max-width: 440px; justify-self: center; width: 100%; }
 .club-card img { height: 42px; width: auto; }
 .club-name { align-self: end; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 700; font-size: 0.9rem; opacity: 0.9; }
-.club-card strong { font-size: 2.4rem; font-weight: 900; }
+.club-card strong { font-size: 2.4rem; font-weight: 900; line-height: 1; }
 .club-free { font-size: 0.9rem; opacity: 0.85; }
 
 .insta { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(24px, 5vw, 64px); align-items: center; }
+.insta-head h2 { overflow-wrap: anywhere; }
 .insta-head .lead { margin-bottom: 22px; }
 .insta-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 .insta-grid a { border-radius: 16px; overflow: hidden; display: block; }

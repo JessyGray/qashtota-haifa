@@ -73,7 +73,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
         <ol className="steps steps-photo">
           {t.process.steps.map((s, i) => (
             <li key={i}>
-              <Photo path={STEP_PHOTOS[i]} alt={s} />
+              <Photo path={STEP_PHOTOS[i]} alt="" />
               <div><span>{i + 1}</span>{s}</div>
             </li>
           ))}
@@ -99,7 +99,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           </div>
         </div>
         <div className="collage">
-          <Photo path="/story/m/k5.webp" alt={t.story.title} className="photo-tall" />
+          <Photo path="/story/m/k5.webp" alt="" className="photo-tall" />
           <Photo path="/menu/m07.webp" alt="" className="collage-a" />
           <Photo path="/menu/m12.webp" alt="" className="collage-b" />
           <span className="collage-badge">{t.branches.since}</span>
@@ -111,7 +111,7 @@ export default async function Home({ params }: { params: Promise<{ locale: strin
           <div className="club-card" aria-hidden="true">
             <img src="/brand/logo-white.png" alt="" />
             <span className="club-name">{t.club.card}</span>
-            <strong dir="ltr">50 pts</strong>
+            <strong>{t.club.pts}</strong>
             <span className="club-free">{t.club.free}</span>
           </div>
           <div>

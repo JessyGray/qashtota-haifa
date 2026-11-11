@@ -35,7 +35,7 @@ type Dict = {
   admin: { title: string; notReady: string };
   marquee: string[];
   stats: { value: string; label: string }[];
-  club: { card: string; free: string };
+  club: { card: string; free: string; pts: string };
   insta: { text: string; cta: string };
   branches: { title: string; open: string; closed: string; city: string; since: string };
 };
@@ -119,7 +119,7 @@ const he: Dict = {
     { value: "50", label: "נקודות מתנה בהצטרפות" },
     { value: "01:00", label: "פתוח עד מאוחר, חמישי עד שבת" },
   ],
-  club: { card: "כרטיס מועדון", free: "ההצטרפות בחינם" },
+  club: { card: "כרטיס מועדון", free: "ההצטרפות בחינם", pts: "50 נקודות" },
   insta: { text: "מה חדש בסניף, טעמים חדשים וטעימות של שישי. הכול עולה לאינסטגרם.", cta: "לעקוב באינסטגרם" },
   branches: { title: "הסניפים שלנו", open: "פתוח עכשיו", closed: "סגור עכשיו", city: "חיפה", since: "מאז מרץ 2026" },
 };
@@ -203,7 +203,7 @@ const ar: Dict = {
     { value: "50", label: "نقطة هدية عند التسجيل" },
     { value: "01:00", label: "مفتوح لوقت متأخر من الخميس للسبت" },
   ],
-  club: { card: "بطاقة النادي", free: "الاشتراك مجاني" },
+  club: { card: "بطاقة النادي", free: "الاشتراك مجاني", pts: "50 نقطة" },
   insta: { text: "جديد الفرع، نكهات جديدة وتذوق يوم الجمعة. كله بينزل على إنستغرام.", cta: "تابعونا على إنستغرام" },
   branches: { title: "فروعنا", open: "مفتوح الآن", closed: "مغلق الآن", city: "حيفا", since: "منذ آذار 2026" },
 };
@@ -287,8 +287,8 @@ const en: Dict = {
     { value: "50", label: "welcome points when you join" },
     { value: "01:00", label: "late nights, Thursday to Saturday" },
   ],
-  club: { card: "Club card", free: "Joining is free" },
-  insta: { text: "New flavours, branch news and Friday tastings. It all goes up on Instagram first.", cta: "Follow on Instagram" },
+  club: { card: "Club card", free: "Joining is free", pts: "50 pts" },
+  insta: { text: "New flavours, branch news and Friday tastings. It all goes up on Instagram.", cta: "Follow on Instagram" },
   branches: { title: "Our branches", open: "Open now", closed: "Closed now", city: "Haifa", since: "Since March 2026" },
 };
 
@@ -371,8 +371,8 @@ const ru: Dict = {
     { value: "50", label: "баллов в подарок при вступлении" },
     { value: "01:00", label: "работаем допоздна с четверга по субботу" },
   ],
-  club: { card: "Карта клуба", free: "Вступление бесплатное" },
-  insta: { text: "Новые вкусы, новости филиала и пятничные дегустации. Всё сначала появляется в Instagram.", cta: "Подписаться в Instagram" },
+  club: { card: "Карта клуба", free: "Вступление бесплатное", pts: "50 баллов" },
+  insta: { text: "Новые вкусы, новости филиала и пятничные дегустации. Всё это выходит в Instagram.", cta: "Подписаться в Instagram" },
   branches: { title: "Наши филиалы", open: "Сейчас открыто", closed: "Сейчас закрыто", city: "Хайфа", since: "С марта 2026" },
 };
 

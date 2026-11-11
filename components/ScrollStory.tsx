@@ -36,7 +36,7 @@ function band(ctx: CanvasRenderingContext2D, img: HTMLImageElement) {
   if (!img.complete || !img.naturalWidth) return false;
   const { width: cw, height: ch } = ctx.canvas;
   const k = img.naturalHeight / 1280;
-  const h = (cw * BAND.h) / img.naturalWidth;
+  const h = (cw * BAND.h * k) / img.naturalWidth;
   const top = ch * 0.4 - h / 2;
   ctx.drawImage(img, 0, BAND.y * k, img.naturalWidth, BAND.h * k, 0, top, cw, h);
   ctx.globalCompositeOperation = "destination-in";
@@ -74,6 +74,8 @@ function pose(f: number, n: number) {
   return { x: x * intro, scale: 1 + 0.14 * intro, reveal: intro };
 }
 
+const PORTRAIT_MQ = "(max-width: 760px), (orientation: portrait) and (max-width: 1100px)";
+
 type Cta = { href: string; label: string; external?: boolean };
 
 export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene[]; hint: string; ctas?: Cta[] }) {
@@ -82,16 +84,27 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
   const stage = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(0);
   const [hasMedia, setHasMedia] = useState(false);
+  const [portrait, setPortrait] = useState<boolean | null>(null);
+
+  // Same breakpoint as the portrait layout in globals.css. Rotating a phone or tablet
+  // switches frame set and layout, so the drawing effect below re-runs on change.
+  useEffect(() => {
+    const mq = window.matchMedia(PORTRAIT_MQ);
+    const sync = () => setPortrait(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
 
   useEffect(() => {
     const el = wrap.current;
     const cv = canvas.current;
-    if (!el || !cv || !asset("/")) return;
+    if (!el || !cv || !asset("/") || portrait === null) return;
     const ctx = cv.getContext("2d");
     if (!ctx) return;
 
-    // Same breakpoint as the portrait layout in globals.css.
-    const mobile = window.matchMedia("(max-width: 760px), (orientation: portrait) and (max-width: 1100px)").matches;
+    const mobile = portrait;
+    const still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const count = mobile ? SEQ_MOBILE : SEQ_DESKTOP;
     const dir = mobile ? "m" : "d";
     const frames = Array.from({ length: count }, (_, i) => load(asset(`/seq/${dir}/${pad(i + 1)}.webp`)));
@@ -121,8 +134,8 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
       if (drawn) setHasMedia(true);
       const f = progress * (scenes.length - 1);
       const p = pose(f, scenes.length);
-      const amp = mobile ? 0.12 : 0.22; // share of viewport width
-      cv.style.transform = `translate3d(${(p.x * amp * 100).toFixed(2)}vw,0,0) scale(${p.scale.toFixed(3)})`;
+      const amp = still ? 0 : mobile ? 0.12 : 0.22; // share of viewport width
+      cv.style.transform = `translate3d(${(p.x * amp * 100).toFixed(2)}vw,0,0) scale(${(still ? 1 : p.scale).toFixed(3)})`;
       // The mask starts far larger than the screen (no visible edge) and closes around the dessert.
       const st = stage.current;
       if (st) st.style.setProperty("--reveal", p.reveal.toFixed(3));
@@ -143,7 +156,8 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
       schedule();
     };
 
-    [...frames, ...stills].forEach((img) => img.addEventListener("load", schedule, { once: true }));
+    const imgs = [...frames, ...stills];
+    imgs.forEach((img) => img.addEventListener("load", schedule, { once: true }));
     resize();
     onScroll();
     window.addEventListener("resize", resize);
@@ -152,8 +166,9 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
       window.removeEventListener("resize", resize);
       window.removeEventListener("scroll", onScroll);
       if (raf) cancelAnimationFrame(raf);
+      imgs.forEach((img) => img.removeEventListener("load", schedule));
     };
-  }, [scenes]);
+  }, [scenes, portrait]);
 
   // Without JS or media the text still steps through the scenes.
   useEffect(() => {
@@ -176,7 +191,7 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
         <span className="story-word" aria-hidden="true">QASHTOTA</span>
         <canvas ref={canvas} aria-hidden="true" />
         {scenes.map((s, i) => (
-          <div key={i} className={`story-copy ${sideOf(i) > 0 ? "text-left" : "text-right"} ${i === active ? "on" : ""}`} aria-hidden={i !== active}>
+          <div key={i} className={`story-copy ${sideOf(i) > 0 ? "text-left" : "text-right"} ${i === active ? "on" : ""}`} aria-hidden={i !== active} inert={i !== active}>
             <span className="story-step">{String(i + 1).padStart(2, "0")}</span>
             {i === 0 ? <h1>{s.title}</h1> : <h2>{s.title}</h2>}
             <p>{s.text}</p>
