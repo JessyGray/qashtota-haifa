@@ -28,6 +28,36 @@ function cover(ctx: CanvasRenderingContext2D, img: HTMLImageElement, alpha = 1) 
   return true;
 }
 
+// Phone frames are the 16:9 video padded to 9:16 with smeared edges. Only rows 300..876 of the
+// 720x1280 frame are real footage, so on phones we draw that band across the full width at 40%
+// height and fade its edges into the page instead of stretching the smear over the screen.
+const BAND = { y: 300, h: 576 };
+function band(ctx: CanvasRenderingContext2D, img: HTMLImageElement) {
+  if (!img.complete || !img.naturalWidth) return false;
+  const { width: cw, height: ch } = ctx.canvas;
+  const k = img.naturalHeight / 1280;
+  const h = (cw * BAND.h) / img.naturalWidth;
+  const top = ch * 0.4 - h / 2;
+  ctx.drawImage(img, 0, BAND.y * k, img.naturalWidth, BAND.h * k, 0, top, cw, h);
+  ctx.globalCompositeOperation = "destination-in";
+  const v = ctx.createLinearGradient(0, top, 0, top + h);
+  v.addColorStop(0, "rgba(0,0,0,0)");
+  v.addColorStop(0.14, "#000");
+  v.addColorStop(0.86, "#000");
+  v.addColorStop(1, "rgba(0,0,0,0)");
+  ctx.fillStyle = v;
+  ctx.fillRect(0, 0, cw, ch);
+  const hz = ctx.createLinearGradient(0, 0, cw, 0);
+  hz.addColorStop(0, "rgba(0,0,0,0)");
+  hz.addColorStop(0.08, "#000");
+  hz.addColorStop(0.92, "#000");
+  hz.addColorStop(1, "rgba(0,0,0,0)");
+  ctx.fillStyle = hz;
+  ctx.fillRect(0, 0, cw, ch);
+  ctx.globalCompositeOperation = "source-over";
+  return true;
+}
+
 // Where the dessert sits for each scene: 1 = right half, -1 = left half (physical sides, same in RTL).
 const sideOf = (i: number) => (i % 2 === 0 ? 1 : -1);
 const ease = (t: number) => t * t * (3 - 2 * t);
@@ -76,8 +106,9 @@ export default function ScrollStory({ scenes, hint, ctas = [] }: { scenes: Scene
       if (count) {
         // Use the nearest frame that has loaded, so fast scrolling never shows a blank canvas.
         const target = Math.round(progress * (count - 1));
+        const paint = mobile ? band : cover;
         for (let d = 0; d < count && !drawn; d++) {
-          drawn = (target - d >= 0 && cover(ctx, frames[target - d])) || (target + d < count && cover(ctx, frames[target + d]));
+          drawn = (target - d >= 0 && paint(ctx, frames[target - d])) || (target + d < count && paint(ctx, frames[target + d]));
         }
       } else {
         const x = progress * (stills.length - 1);
